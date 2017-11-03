@@ -9,6 +9,12 @@ public enum WeaponType
     MouseWeapon
 }
 
+public enum LookDirection
+{
+	LookLeft = -1,
+	LookRight = 1
+}
+
 public class EnumPool {
  
 }

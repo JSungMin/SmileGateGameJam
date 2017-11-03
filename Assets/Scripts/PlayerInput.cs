@@ -4,14 +4,7 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour {
 	public static PlayerInput instance;
-	public Vector3 dir;
-	public Player pActor;
-	public bool inputA = false;
-	public bool inputS = false;
-	public bool inputD = false;
-	public bool inputQ = false;
-
-	public PlayerInput GetInstance
+	public static PlayerInput GetInstance
 	{
 		get{
 			if (null == instance) 
@@ -24,6 +17,13 @@ public class PlayerInput : MonoBehaviour {
 			return instance;
 		}
 	}
+	public Vector3 dir;
+	public Player pActor;
+	public bool inputA = false;
+	public bool inputS = false;
+	public bool inputD = false;
+	public bool inputQ = false;
+
 
 	public void OnEnable ()
 	{
@@ -37,9 +37,28 @@ public class PlayerInput : MonoBehaviour {
 		dir = dir.normalized;		
 		if (dir != Vector3.zero)
 			pActor.Move (dir);
+		else
+			pActor.Idle ();
 		inputA = (Input.GetKey ("a")||Input.GetKey("joystick button 0")) ? true : false;
 		inputS = (Input.GetKey ("s")||Input.GetKey("joystick button 1")) ? true : false;
 		inputD = (Input.GetKey ("d")||Input.GetKey("joystick button 3")) ? true : false;
 		inputQ = (Input.GetKey ("q")||Input.GetKey("joystick button 2")) ? true : false;
+	
+		if (inputA)
+		{
+			pActor.NormalAttack ();
+		}
+		else if (inputD)
+		{
+			pActor.Dash ();
+		}
+		else if (inputQ)
+		{
+			pActor.ChangeWeapon ();
+		}
+		else if (inputS)
+		{
+			pActor.SkillA ();
+		}
 	}
 }
