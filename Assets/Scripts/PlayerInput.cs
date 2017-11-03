@@ -3,12 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInput : MonoBehaviour {
+	public static PlayerInput instance;
 	public Vector3 dir;
 	public Player pActor;
 	public bool inputA = false;
 	public bool inputS = false;
 	public bool inputD = false;
 	public bool inputQ = false;
+
+	public PlayerInput GetInstance
+	{
+		get{
+			if (null == instance) 
+			{
+				instance = GameObject.FindObjectOfType<PlayerInput> ();
+				if (null == instance) {
+					Debug.LogError ("Can't Find PlayerInput");
+				}
+			}
+			return instance;
+		}
+	}
+
+	public void OnEnable ()
+	{
+		instance = this;
+	}
 
 	// Update is called once per frame
 	void Update () {

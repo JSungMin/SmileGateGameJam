@@ -167,7 +167,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
@@ -346,12 +346,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dbb18e8919fbf34da1e33b1bc9b4c26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  info:
+  acInfo:
     name: 
-    hp: 0
-    mp: 0
-    speed: 0
+    hp: 100
+    mp: 100
+    speed: 5
   rigid: {fileID: 0}
+  weInfo:
+    reach: 0
+    damage: 0
+    name: 
+    weaponType: 0
 --- !u!54 &1214872854
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -359,8 +364,8 @@ Rigidbody:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1214872850}
   serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
+  m_Mass: 0.1
+  m_Drag: 1
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 0

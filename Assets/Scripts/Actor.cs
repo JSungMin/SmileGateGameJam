@@ -22,6 +22,6 @@ public class Actor : MonoBehaviour {
 	}
 	public virtual void Move (Vector3 dir)
 	{
-		rigid.MovePosition (dir * acInfo.speed);
+		transform.Translate (dir * acInfo.speed * Time.deltaTime);
 	}
 }
