@@ -12,8 +12,9 @@ public class ActorInfo
 }
 [RequireComponent(typeof (Rigidbody))]
 public class Actor : MonoBehaviour {
-	public ActorInfo info;
+	public ActorInfo acInfo;
 	public Rigidbody rigid;
+    public WeaponInfo weInfo;
 
 	protected void OnEnable ()
 	{
@@ -21,6 +22,6 @@ public class Actor : MonoBehaviour {
 	}
 	public virtual void Move (Vector3 dir)
 	{
-		rigid.MovePosition (dir * info.speed);
+		rigid.MovePosition (dir * acInfo.speed);
 	}
 }

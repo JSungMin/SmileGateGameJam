@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: ddb89f63d0296cf4f8572b0448bb6b30
-timeCreated: 1509718503
+timeCreated: 1509718934
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -8,6 +8,7 @@ TextureImporter:
     21300002: Equipment/shield2
     21300004: Equipment/sword1
     21300006: Equipment/sword4
+  externalObjects: {}
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -61,6 +62,7 @@ TextureImporter:
   platformSettings:
   - buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
+    resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
     compressionQuality: 50
