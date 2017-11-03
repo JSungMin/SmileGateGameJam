@@ -3,26 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInput : MonoBehaviour {
-	public Rigidbody pRigid;
 	public Vector3 dir;
-
-	void OnEnable ()
-	{
-		if (null == pRigid)
-			Debug.LogError ("Rigidbody is Null");
-	}
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
+	public Player pActor;
 	// Update is called once per frame
 	void Update () {
 		dir.x = Input.GetAxis ("Horizontal");
 		dir.y = Input.GetAxis ("Vertical");
-		dir = dir.normalized;
-
-
+		dir = dir.normalized;		
+		if (dir != Vector3.zero)
+			pActor.Move (dir);
 	}
 }
