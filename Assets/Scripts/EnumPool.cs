@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnumPool : MonoBehaviour {
+public enum WeaponType
+{
+    BetWeapon,
+    KeyBoardWeapon,
+    MouseWeapon
+}
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+public class EnumPool {
+ 
 }
