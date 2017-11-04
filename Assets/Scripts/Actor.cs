@@ -8,12 +8,26 @@ public class ActorInfo
 {
 	public string name;
 	public float hp;
+	public float InitHp;
 	public float mp;
 	public float speed;
 	public float dashAmount;
 	public bool isAttacking = false;
 	public bool isDashing = false;
+	public bool isKnockbacking = false;
+	public bool isDead = false;
 	public bool isBeatable = true;
+
+	public void ResetFlags()
+	{
+		isAttacking = false;
+		isDashing = false;
+		isKnockbacking = false;
+		isDead = false;
+		isBeatable = true;
+		hp = InitHp;
+		mp = 0;
+	}
 }
 public delegate void InteractFunc ();
 [RequireComponent(typeof (Rigidbody))]
@@ -32,6 +46,7 @@ public class Actor : MonoBehaviour {
 
 	protected void OnEnable ()
 	{
+		acInfo.InitHp = acInfo.hp;
 		rigid = GetComponent<Rigidbody> ();
 		skel = GetComponentInChildren<SkeletonAnimation> ();
 		bodyCollider = GetComponent<BoxCollider> ();
@@ -56,15 +71,21 @@ public class Actor : MonoBehaviour {
 
 	public virtual void Idle ()
 	{
-		if (acInfo.isAttacking)
+		if (acInfo.isAttacking||acInfo.isDashing)
 			return;
-		SetAnimation (0, acInfo.name+"_idle", true, 1);
+		if (nowWeaponInfo.weaponType == WeaponType.BetWeapon) {
+			SetAnimation (0, acInfo.name+"_bet_idle", true, 1);
+		}
+		else if (nowWeaponInfo.weaponType == WeaponType.KeyBoardWeapon){
+			SetAnimation (0, acInfo.name+"_keyboard_idle", true, 1);
+		}
+
 		rigid.velocity = Vector3.zero;
 	}
 	// dir 넣기전에 normalize 시킬 것
 	public virtual void Move (Vector3 dir)
 	{
-		if (acInfo.isAttacking)
+		if (acInfo.isAttacking || acInfo.isDashing)
 			return;
 		if (dir.x < 0)
 		{
@@ -77,7 +98,12 @@ public class Actor : MonoBehaviour {
 			skel.transform.localScale = new Vector3 (-0.15f,0.15f,0.15f);
 		}
 		rigid.velocity =  (dir * acInfo.speed);
-		SetAnimation (0, acInfo.name+"_run", true, 1);
+		if (nowWeaponInfo.weaponType == WeaponType.BetWeapon) {
+			SetAnimation (0, acInfo.name+"_bet_run", true, 1);
+		}
+		else if (nowWeaponInfo.weaponType == WeaponType.KeyBoardWeapon){
+			SetAnimation (0, acInfo.name+"_keyboard_run", true, 1);
+		}
 	}
 
 	public void ChangeWeapon (int index)
@@ -98,5 +124,9 @@ public class Actor : MonoBehaviour {
 			skel.state.SetAnimation(index, name, loop).TimeScale = time;
 			curAnimation = name;
 		}
+	}
+	public void Update ()
+	{
+		skel.GetComponent<MeshRenderer> ().sortingOrder = -(int)transform.position.y;
 	}
 }

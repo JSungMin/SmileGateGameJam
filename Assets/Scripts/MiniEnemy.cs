@@ -70,7 +70,11 @@ public class MiniEnemy : Enemy {
         float timer = 0f;
         Vector3 dir = new Vector3(0, 0);
 
-        while(true)
+		if (acInfo.isKnockbacking) {
+			rigid.velocity = Vector3.Lerp (rigid.velocity, Vector3.zero, Time.deltaTime * 10f);
+		}
+
+		while(!acInfo.isDead)
         {
             if(!isMeeting)
             {
@@ -118,7 +122,7 @@ public class MiniEnemy : Enemy {
     
     IEnumerator hitCheck()
     {
-        while(true)
+		while(!acInfo.isDead)
         {
             //Debug.Log("Max: " + bodyCollider.bounds.max.y);
             //Debug.Log("Min: " + bodyCollider.bounds.min.y);
@@ -151,40 +155,11 @@ public class MiniEnemy : Enemy {
 
     public void NormalAttack()
     {
-        if (acInfo.isDashing || acInfo.isAttacking)
+		if (acInfo.isDashing || acInfo.isAttacking || acInfo.isDead)
             return;
         skel.state.ClearTrack(0);
         rigid.velocity = Vector3.zero;
-        switch (nowWeaponInfo.weaponType)
-        {
-            case WeaponType.BetWeapon:
-                SetAnimation(0, batAnim[animationIndex], false, 1.5f);
-                break;
-            case WeaponType.KeyBoardWeapon:
-                SetAnimation(0, keyboardAnim[animationIndex], false, 1.5f);
-                break;
-            case WeaponType.MouseWeapon:
-                SetAnimation(0, mouseAnim[animationIndex], false, 1.5f);
-                break;
-        }
-        
-        Vector3 center = transform.position + (int)lookDir * Vector3.right * nowWeaponInfo.reach * 0.5f;
-        var hittedObjs = Physics.OverlapBox(center, Vector3.right * nowWeaponInfo.reach * 0.5f + Vector3.up * bodyCollider.bounds.size.y * 0.5f + Vector3.forward * 2f, Quaternion.identity, 1 << LayerMask.NameToLayer("Player"));
-
-        for(int i = 0; i < hittedObjs.Length; i++)
-        {
-            var obj = hittedObjs[i];
-            Debug.Log(obj.name);
-            var player = obj.GetComponent<Player>();
-            if (null != player)
-            {
-                Debug.Log("Hit!");
-                player.Damaged(nowWeaponInfo.damage, (player.transform.position - transform.position).normalized);
-            }
-
-            animationIndex = 0;
-        }
-        
+		SetAnimation (0, acInfo.name + "_attack0", false, 1f);        
     }
 
     void HandleStartEvent(Spine.TrackEntry entry, Spine.Event e)
@@ -203,11 +178,29 @@ public class MiniEnemy : Enemy {
             acInfo.isAttacking = false;
         }
     }
+	public ParticleSystem hitEffect;
     void HandleHitEvent(Spine.TrackEntry entry, Spine.Event e)
     {
-        if (e.Data.Name == "hit")
+        if (e.Data.Name == "Hit")
         {
-            Debug.Log("EE");
+			Vector3 center = transform.position + (int)lookDir * Vector3.right * nowWeaponInfo.reach * 0.5f;
+			var hittedObjs = Physics.OverlapBox(center, Vector3.right * nowWeaponInfo.reach * 0.5f + Vector3.up * bodyCollider.bounds.size.y * 0.5f + Vector3.forward * 2f, Quaternion.identity, 1 << LayerMask.NameToLayer("Player"));
+
+			for(int i = 0; i < hittedObjs.Length; i++)
+			{
+				var obj = hittedObjs[i];
+				Debug.Log(obj.name);
+				var player = obj.GetComponent<Player>();
+				if (null != player)
+				{
+					Debug.Log("Hit!");
+					player.Damaged(nowWeaponInfo.damage, (player.transform.position - transform.position).normalized);
+				}
+
+				animationIndex = 0;
+			}
+			if (null != hitEffect)
+				hitEffect.Play ();
         }
     }
 
