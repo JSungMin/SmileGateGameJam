@@ -38,7 +38,9 @@ public class PlayerInput : MonoBehaviour {
 		if (dir != Vector3.zero)
 			pActor.Move (dir);
 		else
+		{
 			pActor.Idle ();
+		}
 		inputA = (Input.GetKeyDown ("a")||Input.GetKeyDown("joystick button 0")) ? true : false;
 		inputS = (Input.GetKeyDown ("s")||Input.GetKeyDown("joystick button 1")) ? true : false;
 		inputD = (Input.GetKey ("d")||Input.GetKey("joystick button 3")) ? true : false;

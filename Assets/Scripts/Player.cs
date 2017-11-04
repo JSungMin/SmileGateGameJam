@@ -4,6 +4,8 @@ using UnityEngine;
 using Spine.Unity;
 using Spine.Unity.Modules;
 
+using Com.LuisPedroFonseca.ProCamera2D;
+
 public class Player : Actor {
 	public static Player instance;
 	public static Player GetInstance {
@@ -46,33 +48,39 @@ public class Player : Actor {
 		ChangeWeapon (0);
 	}
 
+	public virtual void Damaged(float val, Vector3 dir)
+	{
+		base.Damaged (val, dir);
+		Camera.main.GetComponent<ProCamera2DShake> ().Shake (0);
+	}
+
 	public void NormalAttack ()
 	{
 		if (acInfo.isDashing || acInfo.isAttacking)
 			return;
 		skel.state.ClearTrack (0);
+		rigid.velocity = Vector3.zero;
 		switch (nowWeaponInfo.weaponType)
 		{
 		case WeaponType.BetWeapon:
-			SetAnimation (0, batAnim[animationIndex], false, 1f);
+			SetAnimation (0, batAnim[animationIndex], false, 1.5f);
 			break;
 		case WeaponType.KeyBoardWeapon:
-			SetAnimation (0, keyboardAnim[animationIndex], false, 1f);
+			SetAnimation (0, keyboardAnim[animationIndex], false, 1.5f);
 			break;
 		case WeaponType.MouseWeapon:
-			SetAnimation (0, mouseAnim[animationIndex], false, 1f);
+			SetAnimation (0, mouseAnim[animationIndex], false, 1.5f);
 			break;
 		}
 
 		Vector3 center = transform.position + (int)lookDir* Vector3.right * nowWeaponInfo.reach * 0.5f;
-		var hittedObjs = Physics.OverlapBox (center,
-			Vector3.right* nowWeaponInfo.reach*0.5f + Vector3.up * bodyCollider.bounds.size.y* 0.5f + Vector3.forward * 2f,
-			Quaternion.identity, 1<<attackableMask);
+		var hittedObjs = Physics.OverlapBox (center, Vector3.right* nowWeaponInfo.reach*0.5f + Vector3.up * bodyCollider.bounds.size.y* 0.5f + Vector3.forward * 2f, Quaternion.identity, 1 << LayerMask.NameToLayer("Enemy"));
 
 		int mCount = 0;
 		for (int i = 0; i < hittedObjs.Length; i++)
 		{
 			var obj = hittedObjs [i];
+			Debug.Log (obj.name);
 			var enemy = obj.GetComponent<Enemy> ();
 			if (null != enemy)
 			{
@@ -81,6 +89,7 @@ public class Player : Actor {
 			}
 		}
 		if (mCount != 0) {
+			Camera.main.GetComponent<ProCamera2DShake> ().Shake (0);
 			if (animationIndex + 1 >= 2) {
 				// 2타 콤보 쳤을때
 				acInfo.mp = Mathf.Min (acInfo.mp + 1, 10);
@@ -128,7 +137,19 @@ public class Player : Actor {
 	}
 	public void SkillA()
 	{
-
+		if (acInfo.mp < 10)
+			return;
+		acInfo.mp = 0;
+		Vector3 center = transform.position + (int)lookDir* Vector3.right * nowWeaponInfo.reach * 0.5f;
+		var hittedObjs = Physics.OverlapBox (center, Vector3.right* nowWeaponInfo.reach*0.5f + Vector3.up * bodyCollider.bounds.size.y* 0.5f + Vector3.forward * 2f, Quaternion.identity, 1 << LayerMask.NameToLayer("Enemy"));
+		Debug.Log ("Use SkillA");
+		for (int i = 0; i < hittedObjs.Length; i++)
+		{
+			var enemy = hittedObjs [i].GetComponent<Enemy>();
+			var dir = (enemy.transform.position - transform.position).normalized;
+			enemy.Damaged (nowWeaponInfo.damage, (enemy.transform.position - transform.position).normalized);
+			enemy.Knockback (dir * 100);
+		}
 	}
 	public void ChangeWeapon()
 	{

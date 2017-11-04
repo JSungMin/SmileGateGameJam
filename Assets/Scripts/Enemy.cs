@@ -31,7 +31,6 @@ public class Enemy : Actor {
 	{
 		Debug.Log ("DD");
 		base.Damaged (val, dir);
-		Knockback (dir * 5);
 	}
 
 }
