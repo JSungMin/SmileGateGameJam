@@ -5,120 +5,155 @@ format: RGBA8888
 filter: Linear,Linear
 repeat: none
 A4
-  rotate: false
-  xy: 2, 1186
-  size: 1332, 852
-  orig: 1332, 852
-  offset: 0, 0
-  index: -1
-Hair
   rotate: true
-  xy: 961, 76
-  size: 140, 201
-  orig: 140, 201
+  xy: 2, 2
+  size: 1332, 856
+  orig: 1332, 856
   offset: 0, 0
   index: -1
 Head
   rotate: false
-  xy: 2, 2
-  size: 530, 580
-  orig: 530, 580
+  xy: 1466, 92
+  size: 534, 582
+  orig: 534, 582
+  offset: 0, 0
+  index: -1
+Keyboard_Up
+  rotate: false
+  xy: 2, 1336
+  size: 1536, 702
+  orig: 1536, 702
   offset: 0, 0
   index: -1
 LeftArm
-  rotate: false
-  xy: 1279, 615
-  size: 362, 569
-  orig: 362, 569
-  offset: 0, 0
-  index: -1
-LeftElbow
   rotate: true
-  xy: 534, 49
-  size: 167, 425
-  orig: 167, 425
-  offset: 0, 0
-  index: -1
-LeftHand
-  rotate: false
-  xy: 1758, 260
-  size: 224, 312
-  orig: 224, 312
-  offset: 0, 0
-  index: -1
-LeftKnee
-  rotate: false
-  xy: 1643, 574
-  size: 353, 727
-  orig: 353, 727
+  xy: 1466, 935
+  size: 364, 571
+  orig: 364, 571
   offset: 0, 0
   index: -1
 RightArm
-  rotate: false
-  xy: 1282, 73
-  size: 253, 540
-  orig: 253, 540
-  offset: 0, 0
-  index: -1
-RightElbow
-  rotate: false
-  xy: 1537, 218
-  size: 219, 354
-  orig: 219, 354
-  offset: 0, 0
-  index: -1
-RightHand
   rotate: true
-  xy: 1537, 9
-  size: 207, 326
-  orig: 207, 326
-  offset: 0, 0
-  index: -1
-RightKnee
-  rotate: true
-  xy: 534, 218
-  size: 364, 746
-  orig: 364, 746
+  xy: 1466, 676
+  size: 257, 542
+  orig: 257, 542
   offset: 0, 0
   index: -1
 RightLeg
   rotate: false
-  xy: 1336, 1303
-  size: 485, 735
-  orig: 485, 735
-  offset: 0, 0
-  index: -1
-Tie
-  rotate: false
-  xy: 1823, 1361
-  size: 170, 677
-  orig: 170, 677
+  xy: 1540, 1301
+  size: 489, 737
+  orig: 489, 737
   offset: 0, 0
   index: -1
 Torso
-  rotate: true
-  xy: 2, 584
-  size: 600, 1275
-  orig: 600, 1275
+  rotate: false
+  xy: 860, 20
+  size: 604, 1279
+  orig: 604, 1279
   offset: 0, 0
   index: -1
 
 skeleton2.png
-size: 1024,512
+size: 2048,2048
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 Face
   rotate: false
-  xy: 624, 99
+  xy: 907, 66
   size: 275, 255
   orig: 275, 255
   offset: 0, 0
   index: -1
-LeftLeg
+Face2
+  rotate: false
+  xy: 1668, 1113
+  size: 273, 296
+  orig: 273, 296
+  offset: 0, 0
+  index: -1
+Face3
+  rotate: false
+  xy: 1668, 815
+  size: 273, 296
+  orig: 273, 296
+  offset: 0, 0
+  index: -1
+Hair
+  rotate: false
+  xy: 1898, 1832
+  size: 140, 201
+  orig: 140, 201
+  offset: 0, 0
+  index: -1
+Keyboard_Down
+  rotate: false
+  xy: 2, 1332
+  size: 1536, 701
+  orig: 1536, 701
+  offset: 0, 0
+  index: -1
+Keyboard_Front
   rotate: true
+  xy: 2, 752
+  size: 578, 1434
+  orig: 578, 1434
+  offset: 0, 0
+  index: -1
+LeftElbow
+  rotate: false
+  xy: 907, 323
+  size: 171, 427
+  orig: 171, 427
+  offset: 0, 0
+  index: -1
+LeftHand
+  rotate: false
+  xy: 1438, 1014
+  size: 228, 316
+  orig: 228, 316
+  offset: 0, 0
+  index: -1
+LeftKnee
+  rotate: false
+  xy: 372, 21
+  size: 357, 729
+  orig: 357, 729
+  offset: 0, 0
+  index: -1
+LeftLeg
+  rotate: false
+  xy: 1540, 1411
+  size: 356, 622
+  orig: 356, 622
+  offset: 0, 0
+  index: -1
+RightElbow
+  rotate: false
+  xy: 1080, 394
+  size: 223, 356
+  orig: 223, 356
+  offset: 0, 0
+  index: -1
+RightHand
+  rotate: false
+  xy: 1305, 420
+  size: 211, 330
+  orig: 211, 330
+  offset: 0, 0
+  index: -1
+RightKnee
+  rotate: false
   xy: 2, 2
-  size: 352, 620
-  orig: 352, 620
+  size: 368, 748
+  orig: 368, 748
+  offset: 0, 0
+  index: -1
+Tie
+  rotate: false
+  xy: 731, 69
+  size: 174, 681
+  orig: 174, 681
   offset: 0, 0
   index: -1

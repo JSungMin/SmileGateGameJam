@@ -30,7 +30,6 @@ public class Player : Actor {
 	};
 	private string[] keyboardAnim = {
 		"Player_keyboard_attack0",
-		"Player_keyboard_attack1"
 	};
 	private string[] mouseAnim = {
 		"Player_mouse_attack0",
@@ -57,6 +56,7 @@ public class Player : Actor {
 	{
 		base.Damaged (val, dir);
 		Camera.main.GetComponent<ProCamera2DShake> ().Shake (0);
+		SetAnimation (0, acInfo.name + "_hit", false, 1f);
 		GamePad.SetVibration (0, 0.5f, 0.5f);
 		Invoke ("StopVibration", 0.5f);
 	}
@@ -87,10 +87,13 @@ public class Player : Actor {
 		for (int i = 0; i < hittedObjs.Length; i++)
 		{
 			var obj = hittedObjs [i];
-			Debug.Log (obj.name);
 			var enemy = obj.GetComponent<Enemy> ();
 			if (null != enemy)
 			{
+				if (enemy.acInfo.isDead)
+					continue;
+				GamePad.SetVibration (0, 0.7f, 0.7f);
+
 				++mCount;
 				switch (nowWeaponInfo.weaponType)
 				{
@@ -134,7 +137,7 @@ public class Player : Actor {
 		var timer = 0f;
 		var curveVal = 0f;
 
-		Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Player"), LayerMask.NameToLayer("Enemy"),true);
+		//Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Player"), LayerMask.NameToLayer("Enemy"),true);
 	
 		while (timer / duration <= 1)
 		{
@@ -144,18 +147,20 @@ public class Player : Actor {
 			yield return null;
 		}
 		GetComponentInChildren<SkeletonGhost> ().ghostingEnabled = false;
+		acInfo.isDashing = false;
 		var delay = 1f;
 		while (delay > 0f)
 		{
 			delay -= Time.deltaTime;
 			yield return null;
 		}
-		Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Player"), LayerMask.NameToLayer("Enemy"),false);
-		acInfo.isDashing = false;
+		//Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Player"), LayerMask.NameToLayer("Enemy"),false);
 	}
 	public void Dash ()
 	{
 		if (!acInfo.isDashing) {
+			SetAnimation (0, acInfo.name + "_dash", true, 1f);
+			GetComponent<AudioSource> ().Play ();
 			StartCoroutine ("IDashing", 0.15f);
 		}
 	}
@@ -192,6 +197,7 @@ public class Player : Actor {
 		if (e.Data.Name == "End") {
 			Debug.Log ("EE");
 			acInfo.isAttacking = false;
+			GamePad.SetVibration (0, 0f, 0f);
 		}
 	}
 	public GameObject[] betHitEffects;

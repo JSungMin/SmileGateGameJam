@@ -7,7 +7,6 @@ public class EnemySpawn : MonoBehaviour {
     public GameObject Mon;
     public List<GameObject> Mons;
 
-
     void Start()
     {
 
@@ -36,7 +35,8 @@ public class EnemySpawn : MonoBehaviour {
             if (!Objs[i].activeInHierarchy)
             {
                 Objs[i].SetActive(true);
-                GameObserver.GetInstance.enemiesList.Add(Objs[i].GetComponent<Enemy>());
+				Objs [i].GetComponent<Enemy> ().spanwer = this;
+				GameObserver.GetInstance.enemiesList.Add(Objs[i].GetComponent<Enemy>());
                 
                 return Objs[i];
             }
@@ -48,7 +48,14 @@ public class EnemySpawn : MonoBehaviour {
     {
         Obj.transform.position = Mon.transform.position;
         GameObserver.instance.enemiesList.Remove(Obj.GetComponent<Enemy>());
-        Obj.SetActive(false);
+		for (int i = 0; i < Obj.GetComponent<Enemy>().mats.Length;i++)
+		{
+			var mat = Obj.GetComponent<Enemy> ().mats [i];
+			mat.SetColor ("_Black", Color.black);
+			mat.SetColor ("_Color", Color.white);
+		}
+		Obj.GetComponent<Enemy> ().acInfo.ResetFlags ();
+		Obj.SetActive(false);
     }
 
 }

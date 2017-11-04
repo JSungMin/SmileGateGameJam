@@ -1,0 +1,201 @@
+
+skeleton.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+CigarHead/CigarHead
+  rotate: false
+  xy: 2, 734
+  size: 763, 1312
+  orig: 763, 1312
+  offset: 0, 0
+  index: -1
+CigarHead/LeftArm
+  rotate: true
+  xy: 1439, 100
+  size: 364, 571
+  orig: 364, 571
+  offset: 0, 0
+  index: -1
+CigarHead/LeftElbow
+  rotate: false
+  xy: 1266, 37
+  size: 171, 427
+  orig: 171, 427
+  offset: 0, 0
+  index: -1
+FileHead/LeftElbow
+  rotate: false
+  xy: 1266, 37
+  size: 171, 427
+  orig: 171, 427
+  offset: 0, 0
+  index: -1
+CigarHead/LeftKnee
+  rotate: false
+  xy: 2, 2
+  size: 357, 730
+  orig: 357, 730
+  offset: 0, 0
+  index: -1
+CigarHead/RightKnee
+  rotate: false
+  xy: 896, 81
+  size: 368, 753
+  orig: 368, 753
+  offset: 0, 0
+  index: -1
+CigarHead/Tie
+  rotate: false
+  xy: 720, 51
+  size: 174, 681
+  orig: 174, 681
+  offset: 0, 0
+  index: -1
+CigarHead/Torso
+  rotate: true
+  xy: 767, 1442
+  size: 604, 1279
+  orig: 604, 1279
+  offset: 0, 0
+  index: -1
+FileHead/LeftKnee
+  rotate: false
+  xy: 361, 2
+  size: 357, 730
+  orig: 357, 730
+  offset: 0, 0
+  index: -1
+FileHead/RightKnee
+  rotate: true
+  xy: 1266, 466
+  size: 368, 753
+  orig: 368, 753
+  offset: 0, 0
+  index: -1
+FileHead/Torso
+  rotate: true
+  xy: 767, 836
+  size: 604, 1279
+  orig: 604, 1279
+  offset: 0, 0
+  index: -1
+
+skeleton2.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+CigarHead/Eye
+  rotate: true
+  xy: 360, 355
+  size: 269, 119
+  orig: 269, 119
+  offset: 0, 0
+  index: -1
+CigarHead/LeftHand
+  rotate: true
+  xy: 1027, 678
+  size: 228, 316
+  orig: 228, 316
+  offset: 0, 0
+  index: -1
+FileHead/LeftHand
+  rotate: true
+  xy: 1027, 678
+  size: 228, 316
+  orig: 228, 316
+  offset: 0, 0
+  index: -1
+CigarHead/LeftLeg
+  rotate: false
+  xy: 2, 2
+  size: 356, 622
+  orig: 356, 622
+  offset: 0, 0
+  index: -1
+CigarHead/RightArm
+  rotate: false
+  xy: 1027, 908
+  size: 257, 542
+  orig: 257, 542
+  offset: 0, 0
+  index: -1
+CigarHead/RightElbow
+  rotate: false
+  xy: 1545, 1012
+  size: 223, 356
+  orig: 223, 356
+  offset: 0, 0
+  index: -1
+FileHead/RightElbow
+  rotate: false
+  xy: 1545, 1012
+  size: 223, 356
+  orig: 223, 356
+  offset: 0, 0
+  index: -1
+CigarHead/RightHand
+  rotate: false
+  xy: 1770, 1038
+  size: 211, 330
+  orig: 211, 330
+  offset: 0, 0
+  index: -1
+FileHead/RightHand
+  rotate: false
+  xy: 1770, 1038
+  size: 211, 330
+  orig: 211, 330
+  offset: 0, 0
+  index: -1
+CigarHead/RightLeg
+  rotate: false
+  xy: 2, 626
+  size: 489, 737
+  orig: 489, 737
+  offset: 0, 0
+  index: -1
+FileHead/LeftArm
+  rotate: false
+  xy: 1585, 1370
+  size: 364, 571
+  orig: 364, 571
+  offset: 0, 0
+  index: -1
+FileHead/LeftLeg
+  rotate: false
+  xy: 493, 741
+  size: 356, 622
+  orig: 356, 622
+  offset: 0, 0
+  index: -1
+FileHead/RightArm
+  rotate: false
+  xy: 1286, 908
+  size: 257, 542
+  orig: 257, 542
+  offset: 0, 0
+  index: -1
+FileHead/RightLeg
+  rotate: true
+  xy: 846, 1452
+  size: 489, 737
+  orig: 489, 737
+  offset: 0, 0
+  index: -1
+FileHead/Tie
+  rotate: false
+  xy: 851, 769
+  size: 174, 681
+  orig: 174, 681
+  offset: 0, 0
+  index: -1
+FileHead/fileHead
+  rotate: false
+  xy: 2, 1365
+  size: 842, 576
+  orig: 842, 576
+  offset: 0, 0
+  index: -1
