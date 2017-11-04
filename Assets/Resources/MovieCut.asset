@@ -42,8 +42,8 @@ MonoBehaviour:
   ambientOcclusion:
     m_Enabled: 1
     m_Settings:
-      intensity: 1
-      radius: 1.5
+      intensity: 0.81
+      radius: 1.19
       sampleCount: 10
       downsampling: 1
       forceForwardCompatibility: 0
@@ -100,8 +100,8 @@ MonoBehaviour:
     m_Enabled: 1
     m_Settings:
       bloom:
-        intensity: 0
-        threshold: 0.74
+        intensity: 0.5
+        threshold: 1.57
         softKnee: 1
         radius: 5.02
         antiFlicker: 0
@@ -112,17 +112,17 @@ MonoBehaviour:
     m_Enabled: 1
     m_Settings:
       tonemapping:
-        tonemapper: 1
-        neutralBlackIn: 0.02
-        neutralWhiteIn: 10
-        neutralBlackOut: 0
-        neutralWhiteOut: 10
-        neutralWhiteLevel: 5.3
-        neutralWhiteClip: 10
+        tonemapper: 2
+        neutralBlackIn: 0.027
+        neutralWhiteIn: 8.6
+        neutralBlackOut: 0.006
+        neutralWhiteOut: 8.5
+        neutralWhiteLevel: 10.3
+        neutralWhiteClip: 8.39
       basic:
-        postExposure: 1
-        temperature: -5
-        tint: 15
+        postExposure: 0.5
+        temperature: 0
+        tint: 10
         hueShift: 0
         saturation: 1
         contrast: 1
@@ -134,9 +134,9 @@ MonoBehaviour:
       colorWheels:
         mode: 1
         log:
-          slope: {r: 1, g: 0.9560939, b: 0.8809337, a: 0}
-          power: {r: 0.9843364, g: 0.96867174, b: 1, a: 0}
-          offset: {r: 0.88093436, g: 0.9248393, b: 1, a: 0}
+          slope: {r: 1, g: 0.99559385, b: 0.9615259, a: 0}
+          power: {r: 1, g: 0.9673533, b: 0.9918376, a: 0}
+          offset: {r: 0.9102657, g: 0.91170585, b: 1, a: 0}
         linear:
           lift: {r: 0, g: 0, b: 0, a: 0}
           gamma: {r: 0, g: 0, b: 0, a: 0}
