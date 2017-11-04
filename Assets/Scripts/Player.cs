@@ -22,11 +22,10 @@ public class Player : Actor {
 	}
 	private PlayerInput input;
 	public LayerMask attackableMask;
-
 	public int animationIndex = 0;
 	private string[] batAnim = {
-		"Player_bet_attack0",
-		"Player_bet_attack1"
+		"Player_bet_attack1",
+		"Player_bet_attack0"
 	};
 	private string[] keyboardAnim = {
 		"Player_keyboard_attack0",
@@ -85,6 +84,21 @@ public class Player : Actor {
 			if (null != enemy)
 			{
 				++mCount;
+				switch (nowWeaponInfo.weaponType)
+				{
+				case WeaponType.BetWeapon:
+					var pos = enemy.bodyCollider.bounds.center + new Vector3 (Random.Range (-1, 1), Random.Range (-1, 1), -1f) + Vector3.up * 2;
+					var newEffect = Instantiate (betHitEffects [Random.Range (0, betHitEffects.Length)], pos, Quaternion.identity);
+					newEffect.transform.localScale = Vector3.one * 2;
+					break;
+				case WeaponType.KeyBoardWeapon:
+
+					break;
+				case WeaponType.MouseWeapon:
+
+					break;
+				}
+
 				enemy.Damaged (nowWeaponInfo.damage, (enemy.transform.position - transform.position).normalized);
 			}
 		}
@@ -170,10 +184,13 @@ public class Player : Actor {
 			acInfo.isAttacking = false;
 		}
 	}
+	public GameObject[] betHitEffects;
+	public GameObject[] keyboardHitEffects;
+	public GameObject[] mouseHitEffects;
 	void HandleHitEvent (Spine.TrackEntry entry, Spine.Event e)
 	{
-		if (e.Data.Name == "hit") {
-			Debug.Log ("EE");
+		if (e.Data.Name == "Hit") {
+
 		}
 	}
 }

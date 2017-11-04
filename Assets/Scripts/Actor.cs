@@ -37,12 +37,17 @@ public class Actor : MonoBehaviour {
 		bodyCollider = GetComponent<BoxCollider> ();
 	}
 	public event InteractFunc OnDamaged;
-
+	public GameObject damagedEffect;
 	public virtual void Damaged(float val, Vector3 dir)
 	{
 		if (!acInfo.isBeatable)
 			return;
 		acInfo.hp -= val;
+		for (int i = 0; i < 3; i++)
+		{
+			var newEffect = Instantiate (damagedEffect, bodyCollider.bounds.center + new Vector3(Random.Range(-0.25f, 0.25f),Random.Range(-0.25f,0.25f)) + Vector3.up * 2, Quaternion.identity);
+			newEffect.transform.localScale = Vector3.one * 2;
+		}
 		if (null != OnDamaged)
 		{
 			OnDamaged.Invoke();

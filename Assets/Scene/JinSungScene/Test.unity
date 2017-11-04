@@ -553,6 +553,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  damagedEffect: {fileID: 100002, guid: 3701b037060881f4ab28875f88041c69, type: 2}
   score: 0
   disToPlayer: 0
   isMoving: 0
@@ -1013,6 +1014,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  damagedEffect: {fileID: 100002, guid: 3701b037060881f4ab28875f88041c69, type: 2}
   score: 0
   disToPlayer: 0
   isMoving: 0
@@ -1267,6 +1269,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  damagedEffect: {fileID: 100002, guid: 3701b037060881f4ab28875f88041c69, type: 2}
   score: 0
   disToPlayer: 0
   isMoving: 0
@@ -1434,6 +1437,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  damagedEffect: {fileID: 100002, guid: 3701b037060881f4ab28875f88041c69, type: 2}
   score: 0
   disToPlayer: 0
   isMoving: 0
@@ -1720,6 +1724,11 @@ Prefab:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 114892497169612528, guid: 1311501b057569b4eaf7988cba95d656,
+        type: 2}
+      propertyPath: damagedEffect
+      value: 
+      objectReference: {fileID: 100002, guid: 3701b037060881f4ab28875f88041c69, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1311501b057569b4eaf7988cba95d656, type: 2}
   m_IsPrefabParent: 0
@@ -1828,6 +1837,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  damagedEffect: {fileID: 100002, guid: 3701b037060881f4ab28875f88041c69, type: 2}
   score: 0
   disToPlayer: 0
   isMoving: 0
@@ -2094,6 +2104,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  damagedEffect: {fileID: 100002, guid: 3701b037060881f4ab28875f88041c69, type: 2}
   score: 0
   disToPlayer: 0
   isMoving: 0
