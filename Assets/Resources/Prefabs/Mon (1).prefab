@@ -1680,6 +1680,7 @@ MonoBehaviour:
   slowSpeed: 1
   State: 
   animationIndex: 0
+  bullet: {fileID: 1339166374206992, guid: 8895a8646b0c819418fa93d13cfa4786, type: 2}
   hitEffect: {fileID: 198396640834274516}
 --- !u!114 &114781001572406552
 MonoBehaviour:
