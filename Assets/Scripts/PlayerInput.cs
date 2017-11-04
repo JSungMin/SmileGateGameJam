@@ -43,8 +43,8 @@ public class PlayerInput : MonoBehaviour {
 		}
 		inputA = (Input.GetKeyDown ("a")||Input.GetKeyDown("joystick button 0")) ? true : false;
 		inputS = (Input.GetKeyDown ("s")||Input.GetKeyDown("joystick button 1")) ? true : false;
-		inputD = (Input.GetKey ("d")||Input.GetKey("joystick button 3")) ? true : false;
-		inputQ = (Input.GetKeyDown ("q")||Input.GetKeyDown("joystick button 2")) ? true : false;
+		inputD = (Input.GetKey ("d")||Input.GetKey("joystick button 2")) ? true : false;
+		inputQ = (Input.GetKeyDown ("q")||Input.GetKeyDown("joystick button 3")) ? true : false;
 	
 		if (inputA)
 		{
@@ -52,7 +52,7 @@ public class PlayerInput : MonoBehaviour {
 		}
 		if (inputD)
 		{
-			pActor.Dash ();
+			pActor.SkillA ();
 		}
 		if (inputQ)
 		{
@@ -60,7 +60,7 @@ public class PlayerInput : MonoBehaviour {
 		}
 		if (inputS)
 		{
-			pActor.SkillA ();
+			pActor.Dash ();
 		}
 	}
 }
