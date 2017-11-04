@@ -139,9 +139,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 533, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1353161065}
-  - {fileID: 1886278491}
+  m_Children: []
   m_Father: {fileID: 1868052926}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -449,11 +447,14 @@ MonoBehaviour:
   acInfo:
     name: Player
     hp: 100
+    InitHp: 0
     mp: 0
     speed: 10
     dashAmount: 50
     isAttacking: 0
     isDashing: 0
+    isKnockbacking: 0
+    isDead: 0
     isBeatable: 1
   nowRoomInfo: {fileID: 0}
   rigid: {fileID: 0}
@@ -814,11 +815,14 @@ MonoBehaviour:
   acInfo:
     name: Player
     hp: 1
+    InitHp: 0
     mp: 0
     speed: 0
     dashAmount: 0
     isAttacking: 0
     isDashing: 0
+    isKnockbacking: 0
+    isDead: 0
     isBeatable: 0
   nowRoomInfo: {fileID: 0}
   rigid: {fileID: 962996604}
@@ -840,8 +844,12 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   damagedEffect: {fileID: 100002, guid: 3701b037060881f4ab28875f88041c69, type: 2}
+  spanwer: {fileID: 0}
   score: 0
   disToPlayer: 0
+  mats: []
+  deathEffect: {fileID: 0}
+  deathEffectPivot: {fileID: 0}
   isMoving: 0
   isMeeting: 0
   farDisance: 4
@@ -852,6 +860,7 @@ MonoBehaviour:
   slowSpeed: 1
   State: 
   animationIndex: 0
+  hitEffect: {fileID: 0}
 --- !u!65 &962996606
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -968,10 +977,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 087f67585eae17744bffe7e66af391d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Combo_Txt:
-  - {fileID: 15982180}
-  - {fileID: 1353161067}
-  - {fileID: 1886278493}
+  Combo_Txt: {fileID: 15982180}
   enemiesList: []
 --- !u!1 &1227517192
 GameObject:
@@ -1094,101 +1100,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 11ceb96cdd534574a9cdd8e7b26a4a9c, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1353161064
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1353161065}
-  - component: {fileID: 1353161068}
-  - component: {fileID: 1353161067}
-  - component: {fileID: 1353161066}
-  m_Layer: 9
-  m_Name: Combo_Ghost1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1353161065
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1353161064}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.000015258789, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 15982179}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 106.400024}
-  m_SizeDelta: {x: 964.2, y: 212.8}
-  m_Pivot: {x: 0.5, y: 1}
---- !u!223 &1353161066
-Canvas:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1353161064}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
---- !u!114 &1353161067
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1353161064}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.7224138, b: 0.125, a: 0.634}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_FontData:
-    m_Font: {fileID: 12800000, guid: 07f217bf10451e445b9c3d4b03b65e36, type: 3}
-    m_FontSize: 150
-    m_FontStyle: 0
-    m_BestFit: 1
-    m_MinSize: 0
-    m_MaxSize: 150
-    m_Alignment: 1
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: COMBO
---- !u!222 &1353161068
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1353161064}
 --- !u!1 &1395945036
 GameObject:
   m_ObjectHideFlags: 0
@@ -1374,11 +1285,14 @@ MonoBehaviour:
   acInfo:
     name: Player
     hp: 1
+    InitHp: 0
     mp: 0
     speed: 0
     dashAmount: 0
     isAttacking: 0
     isDashing: 0
+    isKnockbacking: 0
+    isDead: 0
     isBeatable: 0
   nowRoomInfo: {fileID: 0}
   rigid: {fileID: 1512884419}
@@ -1400,8 +1314,12 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   damagedEffect: {fileID: 100002, guid: 3701b037060881f4ab28875f88041c69, type: 2}
+  spanwer: {fileID: 0}
   score: 0
   disToPlayer: 0
+  mats: []
+  deathEffect: {fileID: 0}
+  deathEffectPivot: {fileID: 0}
   isMoving: 0
   isMeeting: 0
   farDisance: 4
@@ -1412,6 +1330,7 @@ MonoBehaviour:
   slowSpeed: 1
   State: 
   animationIndex: 0
+  hitEffect: {fileID: 0}
 --- !u!212 &1512884421
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1629,11 +1548,14 @@ MonoBehaviour:
   acInfo:
     name: Player
     hp: 1
+    InitHp: 0
     mp: 0
     speed: 0
     dashAmount: 0
     isAttacking: 0
     isDashing: 0
+    isKnockbacking: 0
+    isDead: 0
     isBeatable: 0
   nowRoomInfo: {fileID: 0}
   rigid: {fileID: 1740981459}
@@ -1655,8 +1577,12 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   damagedEffect: {fileID: 100002, guid: 3701b037060881f4ab28875f88041c69, type: 2}
+  spanwer: {fileID: 0}
   score: 0
   disToPlayer: 0
+  mats: []
+  deathEffect: {fileID: 0}
+  deathEffectPivot: {fileID: 0}
   isMoving: 0
   isMeeting: 0
   farDisance: 4
@@ -1667,6 +1593,7 @@ MonoBehaviour:
   slowSpeed: 1
   State: 
   animationIndex: 0
+  hitEffect: {fileID: 0}
 --- !u!212 &1740981461
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1797,11 +1724,14 @@ MonoBehaviour:
   acInfo:
     name: Player
     hp: 1
+    InitHp: 0
     mp: 0
     speed: 0
     dashAmount: 0
     isAttacking: 0
     isDashing: 0
+    isKnockbacking: 0
+    isDead: 0
     isBeatable: 0
   nowRoomInfo: {fileID: 0}
   rigid: {fileID: 1747792511}
@@ -1823,8 +1753,12 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   damagedEffect: {fileID: 100002, guid: 3701b037060881f4ab28875f88041c69, type: 2}
+  spanwer: {fileID: 0}
   score: 0
   disToPlayer: 0
+  mats: []
+  deathEffect: {fileID: 0}
+  deathEffectPivot: {fileID: 0}
   isMoving: 0
   isMeeting: 0
   farDisance: 4
@@ -1835,6 +1769,7 @@ MonoBehaviour:
   slowSpeed: 1
   State: 
   animationIndex: 0
+  hitEffect: {fileID: 0}
 --- !u!212 &1747792513
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2161,101 +2096,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!1 &1886278490
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1886278491}
-  - component: {fileID: 1886278494}
-  - component: {fileID: 1886278493}
-  - component: {fileID: 1886278492}
-  m_Layer: 9
-  m_Name: Combo_Ghots2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1886278491
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1886278490}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.000015258789, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 15982179}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 106.400024}
-  m_SizeDelta: {x: 964.2, y: 212.8}
-  m_Pivot: {x: 0.5, y: 1}
---- !u!223 &1886278492
-Canvas:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1886278490}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
---- !u!114 &1886278493
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1886278490}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.7224138, b: 0.125, a: 0.166}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_FontData:
-    m_Font: {fileID: 12800000, guid: 07f217bf10451e445b9c3d4b03b65e36, type: 3}
-    m_FontSize: 150
-    m_FontStyle: 0
-    m_BestFit: 1
-    m_MinSize: 0
-    m_MaxSize: 150
-    m_Alignment: 1
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: COMBO
---- !u!222 &1886278494
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1886278490}
 --- !u!1001 &1895142904
 Prefab:
   m_ObjectHideFlags: 0
@@ -2263,6 +2103,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 23379403085889286, guid: 1311501b057569b4eaf7988cba95d656,
+        type: 2}
+      propertyPath: m_Materials.Array.size
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4384318873440034, guid: 1311501b057569b4eaf7988cba95d656, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2305,6 +2150,56 @@ Prefab:
       propertyPath: damagedEffect
       value: 
       objectReference: {fileID: 100002, guid: 3701b037060881f4ab28875f88041c69, type: 2}
+    - target: {fileID: 23379403085889286, guid: 1311501b057569b4eaf7988cba95d656,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3bbf8795151169c4c9ecfc42384e9b98, type: 2}
+    - target: {fileID: 23379403085889286, guid: 1311501b057569b4eaf7988cba95d656,
+        type: 2}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: efdc78aabfd7f00449dc0e808107128f, type: 2}
+    - target: {fileID: 23379403085889286, guid: 1311501b057569b4eaf7988cba95d656,
+        type: 2}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3bbf8795151169c4c9ecfc42384e9b98, type: 2}
+    - target: {fileID: 23379403085889286, guid: 1311501b057569b4eaf7988cba95d656,
+        type: 2}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: efdc78aabfd7f00449dc0e808107128f, type: 2}
+    - target: {fileID: 23379403085889286, guid: 1311501b057569b4eaf7988cba95d656,
+        type: 2}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3bbf8795151169c4c9ecfc42384e9b98, type: 2}
+    - target: {fileID: 23379403085889286, guid: 1311501b057569b4eaf7988cba95d656,
+        type: 2}
+      propertyPath: m_Materials.Array.data[5]
+      value: 
+      objectReference: {fileID: 2100000, guid: efdc78aabfd7f00449dc0e808107128f, type: 2}
+    - target: {fileID: 23379403085889286, guid: 1311501b057569b4eaf7988cba95d656,
+        type: 2}
+      propertyPath: m_Materials.Array.data[6]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3bbf8795151169c4c9ecfc42384e9b98, type: 2}
+    - target: {fileID: 23379403085889286, guid: 1311501b057569b4eaf7988cba95d656,
+        type: 2}
+      propertyPath: m_Materials.Array.data[7]
+      value: 
+      objectReference: {fileID: 2100000, guid: efdc78aabfd7f00449dc0e808107128f, type: 2}
+    - target: {fileID: 23379403085889286, guid: 1311501b057569b4eaf7988cba95d656,
+        type: 2}
+      propertyPath: m_Materials.Array.data[8]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3bbf8795151169c4c9ecfc42384e9b98, type: 2}
+    - target: {fileID: 23379403085889286, guid: 1311501b057569b4eaf7988cba95d656,
+        type: 2}
+      propertyPath: m_Materials.Array.data[9]
+      value: 
+      objectReference: {fileID: 2100000, guid: efdc78aabfd7f00449dc0e808107128f, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1311501b057569b4eaf7988cba95d656, type: 2}
   m_IsPrefabParent: 0
@@ -2382,11 +2277,14 @@ MonoBehaviour:
   acInfo:
     name: Player
     hp: 1
+    InitHp: 0
     mp: 0
     speed: 0
     dashAmount: 0
     isAttacking: 0
     isDashing: 0
+    isKnockbacking: 0
+    isDead: 0
     isBeatable: 0
   nowRoomInfo: {fileID: 0}
   rigid: {fileID: 1975485914}
@@ -2408,8 +2306,12 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   damagedEffect: {fileID: 100002, guid: 3701b037060881f4ab28875f88041c69, type: 2}
+  spanwer: {fileID: 0}
   score: 0
   disToPlayer: 0
+  mats: []
+  deathEffect: {fileID: 0}
+  deathEffectPivot: {fileID: 0}
   isMoving: 0
   isMeeting: 0
   farDisance: 4
@@ -2420,6 +2322,7 @@ MonoBehaviour:
   slowSpeed: 1
   State: 
   animationIndex: 0
+  hitEffect: {fileID: 0}
 --- !u!212 &1975485916
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2649,11 +2552,14 @@ MonoBehaviour:
   acInfo:
     name: Player
     hp: 1
+    InitHp: 0
     mp: 0
     speed: 0
     dashAmount: 0
     isAttacking: 0
     isDashing: 0
+    isKnockbacking: 0
+    isDead: 0
     isBeatable: 0
   nowRoomInfo: {fileID: 0}
   rigid: {fileID: 2062519134}
@@ -2675,8 +2581,12 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   damagedEffect: {fileID: 100002, guid: 3701b037060881f4ab28875f88041c69, type: 2}
+  spanwer: {fileID: 0}
   score: 0
   disToPlayer: 0
+  mats: []
+  deathEffect: {fileID: 0}
+  deathEffectPivot: {fileID: 0}
   isMoving: 0
   isMeeting: 0
   farDisance: 4
@@ -2687,6 +2597,7 @@ MonoBehaviour:
   slowSpeed: 1
   State: 
   animationIndex: 0
+  hitEffect: {fileID: 0}
 --- !u!212 &2062519136
 SpriteRenderer:
   m_ObjectHideFlags: 0
