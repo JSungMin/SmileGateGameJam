@@ -48,10 +48,17 @@ public class Player : Actor {
 		ChangeWeapon (0);
 	}
 
+	void StopVibration ()
+	{
+		GamePad.SetVibration (0, 0f, 0f);
+	}
+
 	public virtual void Damaged(float val, Vector3 dir)
 	{
 		base.Damaged (val, dir);
 		Camera.main.GetComponent<ProCamera2DShake> ().Shake (0);
+		GamePad.SetVibration (0, 0.5f, 0.5f);
+		Invoke ("StopVibration", 0.5f);
 	}
 
 	public void NormalAttack ()
@@ -105,7 +112,7 @@ public class Player : Actor {
 		}
 		if (mCount != 0) {
 			Camera.main.GetComponent<ProCamera2DShake> ().Shake (0);
-			GamePad.SetVibration (0, 1f, 1f);
+			GamePad.SetVibration (0, 0.5f, 0.5f);
 			if (animationIndex + 1 >= 2) {
 				// 2타 콤보 쳤을때
 				acInfo.mp = Mathf.Min (acInfo.mp + 1, 10);

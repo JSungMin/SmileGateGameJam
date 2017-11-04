@@ -45,7 +45,7 @@ public class Actor : MonoBehaviour {
 		acInfo.hp -= val;
 		for (int i = 0; i < 3; i++)
 		{
-			var newEffect = Instantiate (damagedEffect, bodyCollider.bounds.center + new Vector3(Random.Range(-0.25f, 0.25f),Random.Range(-0.25f,0.25f)) + Vector3.up * 2, Quaternion.identity);
+			var newEffect = Instantiate (damagedEffect, bodyCollider.bounds.center + new Vector3(Random.Range(-1f, 1f),Random.Range(-1f,1f)) + Vector3.up * 2, Quaternion.identity);
 			newEffect.transform.localScale = Vector3.one * 2;
 		}
 		if (null != OnDamaged)
