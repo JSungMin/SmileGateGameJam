@@ -70,13 +70,13 @@ public class Player : Actor {
 		switch (nowWeaponInfo.weaponType)
 		{
 		case WeaponType.BetWeapon:
-			SetAnimation (0, batAnim[animationIndex], false, 2f);
+			SetAnimation (0, batAnim[animationIndex], false, 1.5f);
 			break;
 		case WeaponType.KeyBoardWeapon:
-			SetAnimation (0, keyboardAnim[animationIndex], false, 2f);
+			SetAnimation (0, keyboardAnim[animationIndex], false, 1.5f);
 			break;
 		case WeaponType.MouseWeapon:
-			SetAnimation (0, mouseAnim[animationIndex], false, 2f);
+			SetAnimation (0, mouseAnim[animationIndex], false, 1.5f);
 			break;
 		}
 
@@ -112,7 +112,10 @@ public class Player : Actor {
 		}
 		if (mCount != 0) {
 			Camera.main.GetComponent<ProCamera2DShake> ().Shake (0);
+<<<<<<< HEAD
 			GamePad.SetVibration (0, 0.5f, 0.5f);
+=======
+>>>>>>> 40c20501d7b4c33b71e6b0a782354acc639a2a4a
 			if (animationIndex + 1 >= 2) {
 				// 2타 콤보 쳤을때
 				acInfo.mp = Mathf.Min (acInfo.mp + 1, 10);
@@ -190,7 +193,6 @@ public class Player : Actor {
 	{
 		if (e.Data.Name == "End") {
 			Debug.Log ("EE");
-			GamePad.SetVibration (0, 0f, 0f);
 			acInfo.isAttacking = false;
 		}
 	}

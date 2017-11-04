@@ -27,7 +27,7 @@ public class Enemy : Actor {
 		rigid.AddForce (speed, ForceMode.Impulse);
 	}
 
-	public virtual void Damaged(float val, Vector3 dir)
+	public new virtual void Damaged(float val, Vector3 dir)
 	{
 		Debug.Log ("DD");
 		base.Damaged (val, dir);
