@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Spine.Unity;
 using Spine.Unity.Modules;
+using XInputDotNetPure;
 
 using Com.LuisPedroFonseca.ProCamera2D;
 
