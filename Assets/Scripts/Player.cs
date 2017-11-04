@@ -100,6 +100,9 @@ public class Player : Actor {
 		var dir = Vector3.right * ((int)lookDir);
 		var timer = 0f;
 		var curveVal = 0f;
+
+		Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Player"), LayerMask.NameToLayer("Enemy"),true);
+	
 		while (timer / duration <= 1)
 		{
 			timer += Time.deltaTime;
@@ -114,6 +117,7 @@ public class Player : Actor {
 			delay -= Time.deltaTime;
 			yield return null;
 		}
+		Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Player"), LayerMask.NameToLayer("Enemy"),false);
 		acInfo.isDashing = false;
 	}
 	public void Dash ()
