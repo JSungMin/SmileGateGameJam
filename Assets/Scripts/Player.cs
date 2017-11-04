@@ -61,6 +61,19 @@ public class Player : Actor {
 		Invoke ("StopVibration", 0.5f);
 	}
 
+	public override void Idle ()
+	{
+		if (acInfo.isAttacking||acInfo.isDashing)
+			return;
+		if (nowWeaponInfo.weaponType == WeaponType.BetWeapon) {
+			SetAnimation (0, acInfo.name+"_bet_idle", true, 1);
+		}
+		else if (nowWeaponInfo.weaponType == WeaponType.KeyBoardWeapon){
+			SetAnimation (0, acInfo.name+"_keyboard_idle", true, 1);
+		}
+		rigid.velocity = Vector3.zero;
+	}
+
 	public void NormalAttack ()
 	{
 		if (acInfo.isDashing || acInfo.isAttacking)
