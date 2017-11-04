@@ -14,6 +14,8 @@ public class MiniEnemy : Enemy {
     public float normalSpeed;
     public float slowSpeed;
 
+    public string State;
+
     new void OnEnable()
     {
         isMoving = false;
@@ -25,30 +27,20 @@ public class MiniEnemy : Enemy {
 
     }
 
-    public Vector3 getMove()
+    public void getState()
     {
-        Vector3 dir;
         if (disToPlayer > farDisance || (disToPlayer >= nearDistance && disToPlayer < normalDistance))
         {
-            acInfo.speed = normalSpeed;
-            Vector3 dir1 = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
-            Vector3 dir2 = (Player.GetInstance.transform.position - transform.position).normalized;
-            dir = (dir1 + dir2).normalized;
+            State = "Far";
         }
-        else if (disToPlayer < nearDistance)
+        else if(disToPlayer < nearDistance)
         {
-            acInfo.speed = fastSpeed;
-            dir = Player.GetInstance.transform.position - transform.position;
-            dir = dir.normalized;
+            State = "Near";
         }
         else
         {
-            acInfo.speed = slowSpeed;
-            dir = Player.GetInstance.transform.position - transform.position;
-            dir = dir.normalized;
+            State = "Normal";
         }
-
-        return dir;
     }
     
     IEnumerator miniPattern()
@@ -58,10 +50,22 @@ public class MiniEnemy : Enemy {
 
         while(true)
         {
-            
-            if (!isMoving)
+            getState();
+            if(State == "Near" || State == "Normal")
             {
-                dir = getMove();
+                dir = Player.GetInstance.transform.position - transform.position;
+                dir = dir.normalized;
+                if(State == "Near")
+                    acInfo.speed = fastSpeed;
+                else
+                    acInfo.speed = slowSpeed;
+            }
+            else if (!isMoving)
+            {
+                acInfo.speed = normalSpeed;
+                Vector3 dir1 = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
+                Vector3 dir2 = (Player.GetInstance.transform.position - transform.position).normalized;
+                dir = (dir1 + dir2).normalized;
                 isMoving = true;
             }
             else if (timer < 1f)
