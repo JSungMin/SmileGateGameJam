@@ -12,7 +12,10 @@ public class EnemySpawn : MonoBehaviour {
 
         Mons = new List<GameObject>();
         LoadObject(Mon, Mons);
-        GameObserver.GetInstance.spawner.Add(this);
+        if (transform.tag != "Boss")
+            GameObserver.GetInstance.spawner.Add(this);
+        else
+            GameObserver.GetInstance.boss_spawner = this;
 
     }
 

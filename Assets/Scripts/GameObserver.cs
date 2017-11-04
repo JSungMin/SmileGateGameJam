@@ -11,7 +11,10 @@ public class GameObserver : MonoBehaviour {
     public Image Rage_Bar;
 
     public List<EnemySpawn> spawner;
+    public EnemySpawn boss_spawner;
+
     public float period;
+    public float boss_period;
   
     public static GameObserver instance;
     public static GameObserver GetInstance
@@ -35,6 +38,7 @@ public class GameObserver : MonoBehaviour {
         StartCoroutine(ComboManage());
         StartCoroutine(BarManage());
         StartCoroutine(SummonEnemy());
+        StartCoroutine(SummonBoss());
     }
 
     void Update()
@@ -61,13 +65,22 @@ public class GameObserver : MonoBehaviour {
         }
     }
 
+    IEnumerator SummonBoss()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(boss_period);
+
+            boss_spawner.GetPooledObject(boss_spawner.Mons);
+        }
+    }
+
     IEnumerator BarManage()
     {
         while(true)
         {
             Hp_Bar.fillAmount = (float)Player.GetInstance.acInfo.hp / 100f;
             Rage_Bar.fillAmount = (float)Player.GetInstance.acInfo.mp / 10f;
-            Debug.Log(Hp_Bar.fillAmount);
 
             yield return null;
         }
