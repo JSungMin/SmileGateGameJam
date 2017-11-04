@@ -26,7 +26,6 @@ public class GameObserver : MonoBehaviour {
         for(int i = 0; i < enemiesList.Count; i++)
         {
             enemiesList[i].UpdateDistanceToPlayer();
-            Debug.Log(i + ": " + enemiesList[i].disToPlayer);
         }
     }
 

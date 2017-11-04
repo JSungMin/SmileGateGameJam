@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : Actor {
 	public static Player instance;
-	public Player GetInstance {
+	public static Player GetInstance {
 		get
 		{
 			if (null == instance) 
