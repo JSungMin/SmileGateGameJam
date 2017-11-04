@@ -864,48 +864,6 @@ MonoBehaviour:
   scale: 1
   zPosition: 1
   overrideAlpha: 1
---- !u!1001 &81000509
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4637917616022750, guid: 2f06fa75434016c41a6d3de1ef9bc956, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 4.33
-      objectReference: {fileID: 0}
-    - target: {fileID: 4637917616022750, guid: 2f06fa75434016c41a6d3de1ef9bc956, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 4.13
-      objectReference: {fileID: 0}
-    - target: {fileID: 4637917616022750, guid: 2f06fa75434016c41a6d3de1ef9bc956, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -9.74
-      objectReference: {fileID: 0}
-    - target: {fileID: 4637917616022750, guid: 2f06fa75434016c41a6d3de1ef9bc956, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4637917616022750, guid: 2f06fa75434016c41a6d3de1ef9bc956, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4637917616022750, guid: 2f06fa75434016c41a6d3de1ef9bc956, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4637917616022750, guid: 2f06fa75434016c41a6d3de1ef9bc956, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4637917616022750, guid: 2f06fa75434016c41a6d3de1ef9bc956, type: 2}
-      propertyPath: m_RootOrder
-      value: 20
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 2f06fa75434016c41a6d3de1ef9bc956, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &87737432
 GameObject:
   m_ObjectHideFlags: 0
@@ -1746,6 +1704,7 @@ MonoBehaviour:
   slowSpeed: 1
   State: 
   animationIndex: 0
+  bullet: {fileID: 0}
   hitEffect: {fileID: 1575383485}
 --- !u!212 &128095340
 SpriteRenderer:
@@ -7169,6 +7128,7 @@ MonoBehaviour:
   slowSpeed: 1
   State: 
   animationIndex: 0
+  bullet: {fileID: 0}
   hitEffect: {fileID: 1443231741}
 --- !u!212 &436602044
 SpriteRenderer:
@@ -9723,6 +9683,7 @@ MonoBehaviour:
   slowSpeed: 1
   State: 
   animationIndex: 0
+  bullet: {fileID: 0}
   hitEffect: {fileID: 2142002439}
 --- !u!212 &733861842
 SpriteRenderer:
@@ -10311,6 +10272,7 @@ MonoBehaviour:
   slowSpeed: 1
   State: 
   animationIndex: 0
+  bullet: {fileID: 0}
   hitEffect: {fileID: 931454722}
 --- !u!212 &761800819
 SpriteRenderer:
@@ -31988,6 +31950,7 @@ MonoBehaviour:
   slowSpeed: 1
   State: 
   animationIndex: 0
+  bullet: {fileID: 0}
   hitEffect: {fileID: 1115394083}
 --- !u!212 &1705671197
 SpriteRenderer:
@@ -33333,6 +33296,8 @@ MonoBehaviour:
   Combo_Txt: {fileID: 947061654}
   Hp_Bar: {fileID: 947061653}
   Rage_Bar: {fileID: 947061652}
+  spawner: []
+  period: 0
   enemiesList: []
 --- !u!212 &1868052928
 SpriteRenderer:
@@ -34643,6 +34608,7 @@ MonoBehaviour:
   slowSpeed: 1
   State: 
   animationIndex: 0
+  bullet: {fileID: 0}
   hitEffect: {fileID: 241727482}
 --- !u!212 &2006320183
 SpriteRenderer:

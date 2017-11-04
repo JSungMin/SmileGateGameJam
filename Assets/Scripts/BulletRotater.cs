@@ -19,7 +19,7 @@ public class BulletRotater : MonoBehaviour {
 		if (timer >= maxLifeTime)
 			DestroyProcess ();
 		timer += Time.deltaTime;
-		transform.Translate (dir * moveSpeed);
+		transform.position += (dir * moveSpeed * Time.deltaTime);
 		transform.Rotate (Vector3.forward * rotateSpeed * Time.deltaTime);	
 	}
 

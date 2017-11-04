@@ -186,6 +186,7 @@ public class MiniEnemy : Enemy {
             acInfo.isAttacking = false;
         }
     }
+	public GameObject bullet;
 	public ParticleSystem hitEffect;
     void HandleHitEvent(Spine.TrackEntry entry, Spine.Event e)
     {
@@ -210,7 +211,12 @@ public class MiniEnemy : Enemy {
 					hitEffect.Play ();
 			}
 			else {
-
+				if (null != bullet) {
+					var newBullet = Instantiate (bullet, bodyCollider.bounds.center + Vector3.up*2f, Quaternion.Euler (44.125f,0f,0f));
+					var b = newBullet.GetComponent<BulletRotater> ();
+					b.dir = (Player.GetInstance.bodyCollider.bounds.center - (bodyCollider.bounds.center + Vector3.up*2f)).normalized;
+					b.dir.z = 0f;
+				}
 			}
         }
     }
