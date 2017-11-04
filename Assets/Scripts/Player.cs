@@ -50,7 +50,7 @@ public class Player : Actor {
 	{
 		if (acInfo.isDashing || acInfo.isAttacking)
 			return;
-
+		skel.state.ClearTrack (0);
 		switch (nowWeaponInfo.weaponType)
 		{
 		case WeaponType.BetWeapon:
