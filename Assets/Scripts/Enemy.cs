@@ -7,7 +7,7 @@ public class Enemy : Actor {
     public int score;
     public float disToPlayer;
 
-	public virtual void OnEnable ()
+	public new virtual void OnEnable ()
 	{
 		base.OnEnable ();
 	}

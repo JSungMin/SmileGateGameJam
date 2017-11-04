@@ -16,8 +16,9 @@ public class MiniEnemy : Enemy {
 
     public string State;
 
-    new void OnEnable()
+    private new void OnEnable()
     {
+        base.OnEnable();
         isMoving = false;
     }
 
@@ -53,7 +54,8 @@ public class MiniEnemy : Enemy {
             getState();
             if(State == "Near" || State == "Normal")
             {
-                dir = Player.GetInstance.transform.position - transform.position;
+                timer = 0f;
+                dir = Player.GetInstance.bodyCollider.bounds.center - transform.position;
                 dir = dir.normalized;
                 if(State == "Near")
                     acInfo.speed = fastSpeed;
@@ -64,7 +66,7 @@ public class MiniEnemy : Enemy {
             {
                 acInfo.speed = normalSpeed;
                 Vector3 dir1 = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
-                Vector3 dir2 = (Player.GetInstance.transform.position - transform.position).normalized;
+                Vector3 dir2 = (Player.GetInstance.bodyCollider.bounds.center - transform.position).normalized;
                 dir = (dir1 + dir2).normalized;
                 isMoving = true;
             }
@@ -76,6 +78,7 @@ public class MiniEnemy : Enemy {
             else if(timer >= 1f && timer < 2f)
             {
                 acInfo.speed = 0;
+                rigid.velocity = Vector3.zero;
                 timer += Time.deltaTime;
             }
             else
