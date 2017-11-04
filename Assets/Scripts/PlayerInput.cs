@@ -45,7 +45,13 @@ public class PlayerInput : MonoBehaviour {
 		inputS = (Input.GetKeyDown ("s")||Input.GetKeyDown("joystick button 1")) ? true : false;
 		inputD = (Input.GetKey ("d")||Input.GetKey("joystick button 2")) ? true : false;
 		inputQ = (Input.GetKeyDown ("q")||Input.GetKeyDown("joystick button 3")) ? true : false;
-	
+
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			pActor.acInfo.hp = pActor.acInfo.InitHp;
+			pActor.acInfo.mp = 10;
+		}
+
 		if (inputA)
 		{
 			pActor.NormalAttack ();

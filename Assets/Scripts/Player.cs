@@ -87,7 +87,7 @@ public class Player : Actor {
 			SetAnimation (0, batAnim[animationIndex], false, 1.5f);
 			break;
 		case WeaponType.KeyBoardWeapon:
-			SetAnimation (0, keyboardAnim[0], false, 5f);
+			SetAnimation (0, keyboardAnim[0], false, 3f);
 			break;
 		case WeaponType.MouseWeapon:
 			SetAnimation (0, mouseAnim[animationIndex], false, 1.5f);
