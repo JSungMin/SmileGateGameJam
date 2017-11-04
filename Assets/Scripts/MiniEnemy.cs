@@ -39,14 +39,19 @@ public class MiniEnemy : Enemy {
         isMeeting = false;
     }
 
+    public void InitChecker ()
+    {
+        StartCoroutine(miniPattern());
+        StartCoroutine(hitCheck());
+    }
+
     void Start()
     {
         // Equipt Default Weapon
         skel.state.Event += HandleHitEvent;
         skel.state.Event += HandleStartEvent;
         skel.state.Event += HandleEndEvent;
-        StartCoroutine(miniPattern());
-        StartCoroutine(hitCheck());
+    
     }
 
     public void getState()

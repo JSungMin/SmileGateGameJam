@@ -10,6 +10,9 @@ public class GameObserver : MonoBehaviour {
     public Image Hp_Bar;
     public Image Rage_Bar;
 
+    public List<EnemySpawn> spawner;
+    public float period;
+  
     public static GameObserver instance;
     public static GameObserver GetInstance
     {
@@ -31,6 +34,7 @@ public class GameObserver : MonoBehaviour {
     {
         StartCoroutine(ComboManage());
         StartCoroutine(BarManage());
+        StartCoroutine(SummonEnemy());
     }
 
     void Update()
@@ -38,6 +42,22 @@ public class GameObserver : MonoBehaviour {
         for (int i = 0; i < enemiesList.Count; i++)
         {
             enemiesList[i].UpdateDistanceToPlayer();
+        }
+    }
+    
+    IEnumerator SummonEnemy()
+    {
+        while(true)
+        {
+            if(enemiesList.Count <= 20)
+            {
+                for (int i = 0; i < spawner.Count; i++)
+                {
+                    spawner[i].GetPooledObject(spawner[i].Mons);
+                }
+            }
+
+            yield return new WaitForSeconds(period);
         }
     }
 

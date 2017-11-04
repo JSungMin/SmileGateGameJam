@@ -12,10 +12,7 @@ public class EnemySpawn : MonoBehaviour {
 
         Mons = new List<GameObject>();
         LoadObject(Mon, Mons);
-        for(int i = 0; i < Mons.Count; i++)
-        {
-            GetPooledObject(Mons);
-        }
+        GameObserver.GetInstance.spawner.Add(this);
 
     }
 
@@ -35,6 +32,7 @@ public class EnemySpawn : MonoBehaviour {
             if (!Objs[i].activeInHierarchy)
             {
                 Objs[i].SetActive(true);
+                Objs[i].GetComponent<MiniEnemy>().InitChecker();
 				Objs [i].GetComponent<Enemy> ().spanwer = this;
 				GameObserver.GetInstance.enemiesList.Add(Objs[i].GetComponent<Enemy>());
                 
