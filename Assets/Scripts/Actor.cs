@@ -12,22 +12,42 @@ public class ActorInfo
 	public float speed;
 	public float dashAmount;
 	public bool isDashing = false;
-	public bool isBeatable = false;
+	public bool isBeatable = true;
 }
 [RequireComponent(typeof (Rigidbody))]
 public class Actor : MonoBehaviour {
 	public ActorInfo acInfo;
 	public Rigidbody rigid;
-    public WeaponInfo weInfo;
+	public BoxCollider bodyCollider;
+    public WeaponInfo nowWeaponInfo;
+	public List<WeaponInfo> haveWeaponsInfo = new List<WeaponInfo>();
+	public int nowWeaponIndex = 0;
 	public SkeletonAnimation skel;
 	public LookDirection lookDir;
 	public string curAnimation;
+	public AnimationCurve dashCurve;
 
 	protected void OnEnable ()
 	{
 		rigid = GetComponent<Rigidbody> ();
 		skel = GetComponentInChildren<SkeletonAnimation> ();
+		bodyCollider = GetComponent<BoxCollider> ();
 	}
+
+	public delegate void InteractFunc ();
+	public event InteractFunc OnDamaged;
+
+	public virtual void Damaged(float val, Vector3 dir)
+	{
+		if (!acInfo.isBeatable)
+			return;
+		acInfo.hp -= val;
+		if (null != OnDamaged)
+		{
+			OnDamaged.Invoke();
+		}
+	}
+
 	public virtual void Idle ()
 	{
 		if (lookDir == LookDirection.LookLeft) {
@@ -36,7 +56,9 @@ public class Actor : MonoBehaviour {
 		else {
 			SetAnimation (0, "Right_Idle", true, 1);
 		}
+		rigid.velocity = Vector3.zero;
 	}
+	// dir 넣기전에 normalize 시킬 것
 	public virtual void Move (Vector3 dir)
 	{
 		if (dir.x > 0)
@@ -55,8 +77,18 @@ public class Actor : MonoBehaviour {
 		else {
 			SetAnimation (0, "Right_Run", true, 1);
 		}
-		transform.Translate (dir * acInfo.speed * Time.deltaTime);
+		dir.z = dir.y;
+		dir.y = 0;
+		rigid.velocity =  (dir * acInfo.speed);
 		// SetAnimation (0, acInfo.name + "_Run", false, 1); 본 애니메이션 들어오면 사용
+	}
+
+	public void ChangeWeapon (int index)
+	{
+		if (index < 0 || index >= haveWeaponsInfo.Count)
+			return;
+		nowWeaponIndex = index;
+		nowWeaponInfo = haveWeaponsInfo [index];
 	}
 	public void SetAnimation(int index, string name, bool loop, float time)
 	{
