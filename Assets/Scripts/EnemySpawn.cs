@@ -46,6 +46,7 @@ public class EnemySpawn : MonoBehaviour {
 
     public void SetPooledObject(GameObject Obj)
     {
+        Obj.transform.position = Mon.transform.position;
         GameObserver.instance.enemiesList.Remove(Obj.GetComponent<Enemy>());
         Obj.SetActive(false);
     }
