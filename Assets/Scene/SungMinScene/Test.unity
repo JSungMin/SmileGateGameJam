@@ -10308,7 +10308,7 @@ MonoBehaviour:
   calculateTangents: 0
   logErrors: 0
   disableRenderingOnOverride: 1
-  _animationName: Player_idle
+  _animationName: Player_bet_idle
   loop: 0
   timeScale: 1
 --- !u!23 &1007069488
@@ -10325,6 +10325,9 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
+  - {fileID: 2100000, guid: 3bbf8795151169c4c9ecfc42384e9b98, type: 2}
+  - {fileID: 2100000, guid: efdc78aabfd7f00449dc0e808107128f, type: 2}
+  - {fileID: 2100000, guid: 3bbf8795151169c4c9ecfc42384e9b98, type: 2}
   - {fileID: 2100000, guid: efdc78aabfd7f00449dc0e808107128f, type: 2}
   - {fileID: 2100000, guid: 3bbf8795151169c4c9ecfc42384e9b98, type: 2}
   - {fileID: 2100000, guid: efdc78aabfd7f00449dc0e808107128f, type: 2}
