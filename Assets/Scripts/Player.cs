@@ -51,7 +51,7 @@ public class Player : Actor {
 	{
 		GamePad.SetVibration (0, 0f, 0f);
 	}
-
+		
 	public new virtual void Damaged(float val, Vector3 dir)
 	{
 		base.Damaged (val, dir);
