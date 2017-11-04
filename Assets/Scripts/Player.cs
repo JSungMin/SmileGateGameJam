@@ -20,6 +20,23 @@ public class Player : Actor {
 	private PlayerInput input;
 	public LayerMask attackableMask;
 
+	public int animationIndex = 0;
+	private string[] batAnim = {
+		"Player_Bat_Attack01",
+		"Player_Bat_Attack02",
+		"Player_Bat_Attack03"
+	};
+	private string[] keyboardAnim = {
+		"Player_Keyboard_Attack01",
+		"Player_Keyboard_Attack02",
+		"Player_Keyboard_Attack03"
+	};
+	private string[] mouseAnim = {
+		"Player_Mouse_Attack01",
+		"Player_Mouse_Attack02",
+		"Player_Mouse_Attack03"
+	};
+
 	void OnEnable ()
 	{
 		base.OnEnable ();
@@ -43,19 +60,23 @@ public class Player : Actor {
 		}
 		Vector3 center = transform.position + (int)lookDir* Vector3.right * nowWeaponInfo.reach * 0.5f;
 		var hittedObjs = Physics.OverlapBox (center,
-			Vector3.right* nowWeaponInfo.reach + Vector3.up * bodyCollider.bounds.size.y* 0.5f,
+			Vector3.right* nowWeaponInfo.reach*0.5f + Vector3.up * bodyCollider.bounds.size.y* 0.5f + Vector3.forward * 2f,
 			Quaternion.identity, 1<<attackableMask);
+
+		int mCount = 0;
 		for (int i = 0; i < hittedObjs.Length; i++)
 		{
 			var obj = hittedObjs [i];
 			var enemy = obj.GetComponent<Enemy> ();
 			if (null != enemy)
 			{
+				++mCount;
 				// TODO:Enemy damaged;
 				enemy.Damaged (nowWeaponInfo.damage, (enemy.transform.position - transform.position).normalized);
 				Debug.Log ("Damaged");
 			}
 		}
+		ComboTimer.GetInstance.AddCombo (mCount);
 	}
 	private IEnumerator IDashing (float duration)
 	{

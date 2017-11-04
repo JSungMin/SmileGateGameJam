@@ -14,9 +14,11 @@ public class ActorInfo
 	public bool isDashing = false;
 	public bool isBeatable = true;
 }
+public delegate void InteractFunc ();
 [RequireComponent(typeof (Rigidbody))]
 public class Actor : MonoBehaviour {
 	public ActorInfo acInfo;
+	public RoomInfo nowRoomInfo;
 	public Rigidbody rigid;
 	public BoxCollider bodyCollider;
     public WeaponInfo nowWeaponInfo;
@@ -33,8 +35,6 @@ public class Actor : MonoBehaviour {
 		skel = GetComponentInChildren<SkeletonAnimation> ();
 		bodyCollider = GetComponent<BoxCollider> ();
 	}
-
-	public delegate void InteractFunc ();
 	public event InteractFunc OnDamaged;
 
 	public virtual void Damaged(float val, Vector3 dir)
