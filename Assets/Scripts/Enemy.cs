@@ -14,8 +14,8 @@ public class Enemy : Actor {
 
     public void UpdateDistanceToPlayer()
     {
-        float disX = Player.instance.transform.position.x - transform.position.x;
-        float disY = Player.instance.transform.position.y - transform.position.y;
+        float disX = Player.GetInstance.bodyCollider.bounds.center.x - bodyCollider.bounds.center.x;
+        float disY = Player.GetInstance.bodyCollider.bounds.center.y - bodyCollider.bounds.center.y;
         
         disToPlayer = Mathf.Sqrt(Mathf.Pow(disX, 2) + Mathf.Pow(disY, 2));
     }

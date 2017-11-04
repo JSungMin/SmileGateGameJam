@@ -25,7 +25,7 @@ public class MiniEnemy : Enemy {
     void Start()
     {
         StartCoroutine(miniPattern());
-
+        
     }
 
     public void getState()
@@ -55,18 +55,19 @@ public class MiniEnemy : Enemy {
             if(State == "Near" || State == "Normal")
             {
                 timer = 0f;
-                dir = Player.GetInstance.bodyCollider.bounds.center - transform.position;
+                dir = Player.GetInstance.bodyCollider.bounds.center - bodyCollider.bounds.center;
                 dir = dir.normalized;
                 if(State == "Near")
                     acInfo.speed = fastSpeed;
                 else
                     acInfo.speed = slowSpeed;
+                Move(dir);
             }
             else if (!isMoving)
             {
                 acInfo.speed = normalSpeed;
                 Vector3 dir1 = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
-                Vector3 dir2 = (Player.GetInstance.bodyCollider.bounds.center - transform.position).normalized;
+                Vector3 dir2 = (Player.GetInstance.bodyCollider.bounds.center - bodyCollider.bounds.center).normalized;
                 dir = (dir1 + dir2).normalized;
                 isMoving = true;
             }
@@ -90,5 +91,6 @@ public class MiniEnemy : Enemy {
             yield return null;
         }
     }
+    
 
 }
