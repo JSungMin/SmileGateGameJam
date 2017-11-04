@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Spine.Unity;
 using Spine.Unity.Modules;
 
 public class Player : Actor {
@@ -22,19 +23,16 @@ public class Player : Actor {
 
 	public int animationIndex = 0;
 	private string[] batAnim = {
-		"Player_Bat_Attack01",
-		"Player_Bat_Attack02",
-		"Player_Bat_Attack03"
+		"Player_bet_attack0",
+		"Player_bet_attack1"
 	};
 	private string[] keyboardAnim = {
-		"Player_Keyboard_Attack01",
-		"Player_Keyboard_Attack02",
-		"Player_Keyboard_Attack03"
+		"Player_keyboard_attack0",
+		"Player_keyboard_attack1"
 	};
 	private string[] mouseAnim = {
-		"Player_Mouse_Attack01",
-		"Player_Mouse_Attack02",
-		"Player_Mouse_Attack03"
+		"Player_mouse_attack0",
+		"Player_mouse_attack1"
 	};
 
 	void OnEnable ()
@@ -42,22 +40,30 @@ public class Player : Actor {
 		base.OnEnable ();
 		instance = this;
 		// Equipt Default Weapon
+		skel.state.Event += HandleHitEvent;
+		skel.state.Event += HandleStartEvent;
+		skel.state.Event += HandleEndEvent;
 		ChangeWeapon (0);
 	}
 
 	public void NormalAttack ()
 	{
-		if (acInfo.isDashing)
+		if (acInfo.isDashing || acInfo.isAttacking)
 			return;
 
-		if (lookDir == LookDirection.LookLeft) {
-			skel.AnimationState.ClearTrack (0);
-			SetAnimation (0, "Left_Attack", true, 1);
+		switch (nowWeaponInfo.weaponType)
+		{
+		case WeaponType.BetWeapon:
+			SetAnimation (0, batAnim[animationIndex], false, 1f);
+			break;
+		case WeaponType.KeyBoardWeapon:
+			SetAnimation (0, keyboardAnim[animationIndex], false, 1f);
+			break;
+		case WeaponType.MouseWeapon:
+			SetAnimation (0, mouseAnim[animationIndex], false, 1f);
+			break;
 		}
-		else {
-			skel.AnimationState.ClearTrack (0);
-			SetAnimation (0, "Right_Attack", true, 1);
-		}
+
 		Vector3 center = transform.position + (int)lookDir* Vector3.right * nowWeaponInfo.reach * 0.5f;
 		var hittedObjs = Physics.OverlapBox (center,
 			Vector3.right* nowWeaponInfo.reach*0.5f + Vector3.up * bodyCollider.bounds.size.y* 0.5f + Vector3.forward * 2f,
@@ -71,12 +77,21 @@ public class Player : Actor {
 			if (null != enemy)
 			{
 				++mCount;
-				// TODO:Enemy damaged;
 				enemy.Damaged (nowWeaponInfo.damage, (enemy.transform.position - transform.position).normalized);
-				Debug.Log ("Damaged");
 			}
 		}
-		ComboTimer.GetInstance.AddCombo (mCount);
+		if (mCount != 0) {
+			if (animationIndex + 1 >= 2) {
+				// 2타 콤보 쳤을때
+				acInfo.mp = Mathf.Min (acInfo.mp + 1, 10);
+				animationIndex = 0;
+			} else {
+				++animationIndex;
+			}
+			ComboTimer.GetInstance.AddCombo (mCount);
+		} else {
+			animationIndex = 0;
+		}
 	}
 	private IEnumerator IDashing (float duration)
 	{
@@ -114,5 +129,26 @@ public class Player : Actor {
 	public void ChangeWeapon()
 	{
 		ChangeWeapon ((nowWeaponIndex + 1) % haveWeaponsInfo.Count);
+	}
+
+	void HandleStartEvent (Spine.TrackEntry entry, Spine.Event e)
+	{
+		if (e.Data.Name == "Start") {
+			acInfo.isAttacking = true;
+			Debug.Log ("SS");
+		}
+	}
+	void HandleEndEvent (Spine.TrackEntry entry, Spine.Event e)
+	{
+		if (e.Data.Name == "End") {
+			Debug.Log ("EE");
+			acInfo.isAttacking = false;
+		}
+	}
+	void HandleHitEvent (Spine.TrackEntry entry, Spine.Event e)
+	{
+		if (e.Data.Name == "hit") {
+			Debug.Log ("EE");
+		}
 	}
 }

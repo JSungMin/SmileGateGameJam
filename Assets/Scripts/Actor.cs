@@ -11,6 +11,7 @@ public class ActorInfo
 	public float mp;
 	public float speed;
 	public float dashAmount;
+	public bool isAttacking = false;
 	public bool isDashing = false;
 	public bool isBeatable = true;
 }
@@ -50,37 +51,28 @@ public class Actor : MonoBehaviour {
 
 	public virtual void Idle ()
 	{
-		if (lookDir == LookDirection.LookLeft) {
-			SetAnimation (0, "Left_Idle", true, 1);
-		}
-		else {
-			SetAnimation (0, "Right_Idle", true, 1);
-		}
+		if (acInfo.isAttacking)
+			return;
+		SetAnimation (0, acInfo.name+"_idle", true, 1);
 		rigid.velocity = Vector3.zero;
 	}
 	// dir 넣기전에 normalize 시킬 것
 	public virtual void Move (Vector3 dir)
 	{
-		if (dir.x > 0)
-		{
-			lookDir = LookDirection.LookRight;
-			SetAnimation (0, "Right_Run", true, 1);
-		}
-		else if (dir.x < 0)
+		if (acInfo.isAttacking)
+			return;
+		if (dir.x < 0)
 		{
 			lookDir = LookDirection.LookLeft;
-			SetAnimation (0, "Left_Run", true, 1);
+			skel.transform.localScale = Vector3.one * 0.15f;
 		}
-		if (lookDir == LookDirection.LookLeft) {
-			SetAnimation (0, "Left_Run", true, 1);
-		} 
-		else {
-			SetAnimation (0, "Right_Run", true, 1);
+		else if (dir.x > 0)
+		{
+			lookDir = LookDirection.LookRight;
+			skel.transform.localScale = new Vector3 (-0.15f,0.15f,0.15f);
 		}
-		dir.z = dir.y;
-		dir.y = 0;
 		rigid.velocity =  (dir * acInfo.speed);
-		// SetAnimation (0, acInfo.name + "_Run", false, 1); 본 애니메이션 들어오면 사용
+		SetAnimation (0, acInfo.name+"_run", true, 1);
 	}
 
 	public void ChangeWeapon (int index)
