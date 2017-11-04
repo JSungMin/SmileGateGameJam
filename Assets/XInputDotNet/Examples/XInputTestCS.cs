@@ -1,5 +1,5 @@
 using UnityEngine;
-using XInputDotNetPure; // Required in C#
+// using XInputDotNetPure; // Required in C#
 
 public class XInputTestCS : MonoBehaviour
 {
