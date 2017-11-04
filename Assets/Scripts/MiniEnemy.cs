@@ -159,7 +159,10 @@ public class MiniEnemy : Enemy {
             return;
         skel.state.ClearTrack(0);
         rigid.velocity = Vector3.zero;
-		SetAnimation (0, acInfo.name + "_attack0", false, 1f);        
+		if (acInfo.name != "Fileman")
+			SetAnimation (0, acInfo.name + "_attack0", false, 1f);     
+		else
+			SetAnimation (0, acInfo.name + "_attack1", false, 1f); 
     }
 
     void HandleStartEvent(Spine.TrackEntry entry, Spine.Event e)
@@ -183,24 +186,27 @@ public class MiniEnemy : Enemy {
     {
         if (e.Data.Name == "Hit")
         {
-			Vector3 center = transform.position + (int)lookDir * Vector3.right * nowWeaponInfo.reach * 0.5f;
-			var hittedObjs = Physics.OverlapBox(center, Vector3.right * nowWeaponInfo.reach * 0.5f + Vector3.up * bodyCollider.bounds.size.y * 0.5f + Vector3.forward * 2f, Quaternion.identity, 1 << LayerMask.NameToLayer("Player"));
+			if (acInfo.name != "Fileman") {
+				Vector3 center = transform.position + (int)lookDir * Vector3.right * nowWeaponInfo.reach * 0.5f;
+				var hittedObjs = Physics.OverlapBox (center, Vector3.right * nowWeaponInfo.reach * 0.5f + Vector3.up * bodyCollider.bounds.size.y * 0.5f + Vector3.forward * 2f, Quaternion.identity, 1 << LayerMask.NameToLayer ("Player"));
 
-			for(int i = 0; i < hittedObjs.Length; i++)
-			{
-				var obj = hittedObjs[i];
-				Debug.Log(obj.name);
-				var player = obj.GetComponent<Player>();
-				if (null != player)
-				{
-					Debug.Log("Hit!");
-					player.Damaged(nowWeaponInfo.damage, (player.transform.position - transform.position).normalized);
+				for (int i = 0; i < hittedObjs.Length; i++) {
+					var obj = hittedObjs [i];
+					Debug.Log (obj.name);
+					var player = obj.GetComponent<Player> ();
+					if (null != player) {
+						Debug.Log ("Hit!");
+						player.Damaged (nowWeaponInfo.damage, (player.transform.position - transform.position).normalized);
+					}
+
+					animationIndex = 0;
 				}
-
-				animationIndex = 0;
+				if (null != hitEffect)
+					hitEffect.Play ();
 			}
-			if (null != hitEffect)
-				hitEffect.Play ();
+			else {
+
+			}
         }
     }
 

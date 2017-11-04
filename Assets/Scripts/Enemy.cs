@@ -33,6 +33,7 @@ public class Enemy : Actor {
 	public IEnumerator DeathRoutine (float duration)
 	{
 		acInfo.isDead = true;
+		rigid.velocity = Vector3.zero;
 		float timer = 0f;
 		while (timer <= 0.5f * duration)
 		{
