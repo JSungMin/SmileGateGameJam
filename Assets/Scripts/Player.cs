@@ -69,7 +69,7 @@ public class Player : Actor {
 			SetAnimation (0, acInfo.name+"_bet_idle", true, 1);
 		}
 		else if (nowWeaponInfo.weaponType == WeaponType.KeyBoardWeapon){
-			SetAnimation (0, acInfo.name+"_keyboard_idle", true, 1);
+			SetAnimation (0, acInfo.name+"_keyboard_Idle", true, 1);
 		}
 		rigid.velocity = Vector3.zero;
 	}
