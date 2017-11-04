@@ -4,6 +4,8 @@ using UnityEngine;
 using Spine.Unity;
 using Spine.Unity.Modules;
 
+using Com.LuisPedroFonseca.ProCamera2D;
+
 public class Player : Actor {
 	public static Player instance;
 	public static Player GetInstance {
@@ -51,6 +53,7 @@ public class Player : Actor {
 		if (acInfo.isDashing || acInfo.isAttacking)
 			return;
 		skel.state.ClearTrack (0);
+		rigid.velocity = Vector3.zero;
 		switch (nowWeaponInfo.weaponType)
 		{
 		case WeaponType.BetWeapon:
@@ -65,14 +68,13 @@ public class Player : Actor {
 		}
 
 		Vector3 center = transform.position + (int)lookDir* Vector3.right * nowWeaponInfo.reach * 0.5f;
-		var hittedObjs = Physics.OverlapBox (center,
-			Vector3.right* nowWeaponInfo.reach*0.5f + Vector3.up * bodyCollider.bounds.size.y* 0.5f + Vector3.forward * 2f,
-			Quaternion.identity, 1<<attackableMask);
+		var hittedObjs = Physics.OverlapBox (center, Vector3.right* nowWeaponInfo.reach*0.5f + Vector3.up * bodyCollider.bounds.size.y* 0.5f + Vector3.forward * 2f, Quaternion.identity, 1 << LayerMask.NameToLayer("Enemy"));
 
 		int mCount = 0;
 		for (int i = 0; i < hittedObjs.Length; i++)
 		{
 			var obj = hittedObjs [i];
+			Debug.Log (obj.name);
 			var enemy = obj.GetComponent<Enemy> ();
 			if (null != enemy)
 			{
@@ -81,6 +83,7 @@ public class Player : Actor {
 			}
 		}
 		if (mCount != 0) {
+			Camera.main.GetComponent<ProCamera2DShake> ().Shake (0);
 			if (animationIndex + 1 >= 2) {
 				// 2타 콤보 쳤을때
 				acInfo.mp = Mathf.Min (acInfo.mp + 1, 10);
