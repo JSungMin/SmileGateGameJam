@@ -39,24 +39,24 @@ public class PlayerInput : MonoBehaviour {
 			pActor.Move (dir);
 		else
 			pActor.Idle ();
-		inputA = (Input.GetKey ("a")||Input.GetKey("joystick button 0")) ? true : false;
-		inputS = (Input.GetKey ("s")||Input.GetKey("joystick button 1")) ? true : false;
+		inputA = (Input.GetKeyDown ("a")||Input.GetKeyDown("joystick button 0")) ? true : false;
+		inputS = (Input.GetKeyDown ("s")||Input.GetKeyDown("joystick button 1")) ? true : false;
 		inputD = (Input.GetKey ("d")||Input.GetKey("joystick button 3")) ? true : false;
-		inputQ = (Input.GetKey ("q")||Input.GetKey("joystick button 2")) ? true : false;
+		inputQ = (Input.GetKeyDown ("q")||Input.GetKeyDown("joystick button 2")) ? true : false;
 	
 		if (inputA)
 		{
 			pActor.NormalAttack ();
 		}
-		else if (inputD)
+		if (inputD)
 		{
 			pActor.Dash ();
 		}
-		else if (inputQ)
+		if (inputQ)
 		{
 			pActor.ChangeWeapon ();
 		}
-		else if (inputS)
+		if (inputS)
 		{
 			pActor.SkillA ();
 		}

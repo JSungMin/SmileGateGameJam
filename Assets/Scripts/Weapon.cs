@@ -5,8 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public class WeaponInfo
 {
+	public string name;
     public float reach;
     public float damage;
-    public string name;
     public WeaponType weaponType;
 }

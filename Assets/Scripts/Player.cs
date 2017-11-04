@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Spine.Unity.Modules;
 
 public class Player : Actor {
 	public static Player instance;
@@ -18,45 +19,92 @@ public class Player : Actor {
 	}
 	private PlayerInput input;
 	public LayerMask attackableMask;
+
+	public int animationIndex = 0;
+	private string[] batAnim = {
+		"Player_Bat_Attack01",
+		"Player_Bat_Attack02",
+		"Player_Bat_Attack03"
+	};
+	private string[] keyboardAnim = {
+		"Player_Keyboard_Attack01",
+		"Player_Keyboard_Attack02",
+		"Player_Keyboard_Attack03"
+	};
+	private string[] mouseAnim = {
+		"Player_Mouse_Attack01",
+		"Player_Mouse_Attack02",
+		"Player_Mouse_Attack03"
+	};
+
 	void OnEnable ()
 	{
+		base.OnEnable ();
 		instance = this;
+		// Equipt Default Weapon
+		ChangeWeapon (0);
 	}
 
 	public void NormalAttack ()
 	{
-		Vector3 center = transform.position + transform.localScale.x * Vector3.right * weInfo.reach * 0.5f;
-		var hittedObjs = Physics.OverlapBox (center, Vector3.one * weInfo.reach * 0.5f,Quaternion.identity, 1<<attackableMask);
+		if (acInfo.isDashing)
+			return;
+
+		if (lookDir == LookDirection.LookLeft) {
+			skel.AnimationState.ClearTrack (0);
+			SetAnimation (0, "Left_Attack", true, 1);
+		}
+		else {
+			skel.AnimationState.ClearTrack (0);
+			SetAnimation (0, "Right_Attack", true, 1);
+		}
+		Vector3 center = transform.position + (int)lookDir* Vector3.right * nowWeaponInfo.reach * 0.5f;
+		var hittedObjs = Physics.OverlapBox (center,
+			Vector3.right* nowWeaponInfo.reach*0.5f + Vector3.up * bodyCollider.bounds.size.y* 0.5f + Vector3.forward * 2f,
+			Quaternion.identity, 1<<attackableMask);
+
+		int mCount = 0;
 		for (int i = 0; i < hittedObjs.Length; i++)
 		{
 			var obj = hittedObjs [i];
 			var enemy = obj.GetComponent<Enemy> ();
 			if (null != enemy)
 			{
+				++mCount;
 				// TODO:Enemy damaged;
+				enemy.Damaged (nowWeaponInfo.damage, (enemy.transform.position - transform.position).normalized);
 				Debug.Log ("Damaged");
 			}
 		}
+		ComboTimer.GetInstance.AddCombo (mCount);
 	}
-	private IEnumerator IDashing ()
+	private IEnumerator IDashing (float duration)
 	{
 		acInfo.isDashing = true;
-		var prevPos = transform.position;
-		var targetPos = prevPos + Vector3.right * ((int)lookDir) * acInfo.dashAmount;
+		GetComponentInChildren<SkeletonGhost> ().ghostingEnabled = true;
+		var dir = Vector3.right * ((int)lookDir);
 		var timer = 0f;
-		while (timer <= 1)
+		var curveVal = 0f;
+		while (timer / duration <= 1)
 		{
 			timer += Time.deltaTime;
-			transform.position = Vector3.Lerp (prevPos, targetPos, timer);
+			curveVal = dashCurve.Evaluate (timer / duration);
+			rigid.velocity = dir * curveVal * acInfo.dashAmount;
 			yield return null;
 		}
-		transform.position = targetPos;
+		GetComponentInChildren<SkeletonGhost> ().ghostingEnabled = false;
+		var delay = 1f;
+		while (delay > 0f)
+		{
+			delay -= Time.deltaTime;
+			yield return null;
+		}
 		acInfo.isDashing = false;
 	}
 	public void Dash ()
 	{
 		if (!acInfo.isDashing) {
-			StartCoroutine ("IDashing");
+			StartCoroutine ("IDashing", 0.15f);
 		}
 	}
 	public void SkillA()
@@ -65,6 +113,6 @@ public class Player : Actor {
 	}
 	public void ChangeWeapon()
 	{
-
+		ChangeWeapon ((nowWeaponIndex + 1) % haveWeaponsInfo.Count);
 	}
 }
