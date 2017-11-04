@@ -130,6 +130,7 @@ public class Player : Actor {
 		if (mCount != 0) {
 			Camera.main.GetComponent<ProCamera2DShake> ().Shake (0);
 			GamePad.SetVibration (0, 0.5f, 0.5f);
+            Debug.Log("DD");
 			if (animationIndex + 1 >= 2) {
 				// 2타 콤보 쳤을때
 				acInfo.mp = Mathf.Min (acInfo.mp + 1, 10);

@@ -8,7 +8,7 @@ public class GameObserver : MonoBehaviour {
     public Text Combo_Txt;
 
     public Image Hp_Bar;
-    public Image Skill_Bar;
+    public Image Rage_Bar;
 
     public static GameObserver instance;
     public static GameObserver GetInstance
@@ -29,7 +29,8 @@ public class GameObserver : MonoBehaviour {
 
     void Start()
     {
-        StartCoroutine(ComboManage());    
+        StartCoroutine(ComboManage());
+        StartCoroutine(BarManage());
     }
 
     void Update()
@@ -37,6 +38,18 @@ public class GameObserver : MonoBehaviour {
         for (int i = 0; i < enemiesList.Count; i++)
         {
             enemiesList[i].UpdateDistanceToPlayer();
+        }
+    }
+
+    IEnumerator BarManage()
+    {
+        while(true)
+        {
+            Hp_Bar.fillAmount = (float)Player.GetInstance.acInfo.hp / 100f;
+            Rage_Bar.fillAmount = (float)Player.GetInstance.acInfo.mp / 10f;
+            Debug.Log(Hp_Bar.fillAmount);
+
+            yield return null;
         }
     }
 
@@ -55,7 +68,7 @@ public class GameObserver : MonoBehaviour {
             else if (ComboTimer.GetInstance.combo == 0)
             {
                 currentCombo = 0;
-                Combo_Txt.text = null;
+                Combo_Txt.text = "";
                 Combo_Txt.gameObject.SetActive(false);
             }
 
