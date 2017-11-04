@@ -55,8 +55,9 @@ public class Player : Actor {
 	public new virtual void Damaged(float val, Vector3 dir)
 	{
 		base.Damaged (val, dir);
+		acInfo.isAttacking = false;
 		Camera.main.GetComponent<ProCamera2DShake> ().Shake (0);
-		SetAnimation (0, acInfo.name + "_hit", false, 1f);
+		//SetAnimation (0, acInfo.name + "_hit", true, 1f);
 		GamePad.SetVibration (0, 0.5f, 0.5f);
 		Invoke ("StopVibration", 0.5f);
 	}
@@ -86,65 +87,17 @@ public class Player : Actor {
 			SetAnimation (0, batAnim[animationIndex], false, 1.5f);
 			break;
 		case WeaponType.KeyBoardWeapon:
-			SetAnimation (0, keyboardAnim[animationIndex], false, 1.5f);
+			SetAnimation (0, keyboardAnim[0], false, 1.5f);
 			break;
 		case WeaponType.MouseWeapon:
 			SetAnimation (0, mouseAnim[animationIndex], false, 1.5f);
 			break;
 		}
-
-		Vector3 center = transform.position + (int)lookDir* Vector3.right * nowWeaponInfo.reach * 0.5f;
-		var hittedObjs = Physics.OverlapBox (center, Vector3.right* nowWeaponInfo.reach*0.5f + Vector3.up * bodyCollider.bounds.size.y* 0.5f + Vector3.forward * 2f, Quaternion.identity, 1 << LayerMask.NameToLayer("Enemy"));
-
-		int mCount = 0;
-		for (int i = 0; i < hittedObjs.Length; i++)
-		{
-			var obj = hittedObjs [i];
-			var enemy = obj.GetComponent<Enemy> ();
-			if (null != enemy)
-			{
-				if (enemy.acInfo.isDead)
-					continue;
-				GamePad.SetVibration (0, 0.7f, 0.7f);
-
-				++mCount;
-				switch (nowWeaponInfo.weaponType)
-				{
-				case WeaponType.BetWeapon:
-					var pos = enemy.bodyCollider.bounds.center + new Vector3 (Random.Range (-1, 1), Random.Range (-1, 1), -1f) + Vector3.up * 2;
-					var newEffect = Instantiate (betHitEffects [Random.Range (0, betHitEffects.Length)], pos, Quaternion.identity);
-					newEffect.transform.localScale = Vector3.one * 2;
-					break;
-				case WeaponType.KeyBoardWeapon:
-
-					break;
-				case WeaponType.MouseWeapon:
-
-					break;
-				}
-
-                Debug.Log("Hit?");
-				enemy.Damaged (nowWeaponInfo.damage, (enemy.transform.position - transform.position).normalized);
-			}
-		}
-		if (mCount != 0) {
-			Camera.main.GetComponent<ProCamera2DShake> ().Shake (0);
-			GamePad.SetVibration (0, 0.5f, 0.5f);
-			if (animationIndex + 1 >= 2) {
-				// 2타 콤보 쳤을때
-				acInfo.mp = Mathf.Min (acInfo.mp + 1, 10);
-				animationIndex = 0;
-			} else {
-				++animationIndex;
-			}
-			ComboTimer.GetInstance.AddCombo (mCount);
-		} else {
-			animationIndex = 0;
-		}
 	}
 	private IEnumerator IDashing (float duration)
 	{
 		acInfo.isDashing = true;
+		acInfo.isAttacking = false;
 		GetComponentInChildren<SkeletonGhost> ().ghostingEnabled = true;
 		var dir = Vector3.right * ((int)lookDir);
 		var timer = 0f;
@@ -161,12 +114,15 @@ public class Player : Actor {
 		}
 		GetComponentInChildren<SkeletonGhost> ().ghostingEnabled = false;
 		acInfo.isDashing = false;
+
 		var delay = 1f;
 		while (delay > 0f)
 		{
 			delay -= Time.deltaTime;
 			yield return null;
 		}
+		acInfo.isAttacking = false;
+		Idle ();
 		//Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Player"), LayerMask.NameToLayer("Enemy"),false);
 	}
 	public void Dash ()
@@ -177,25 +133,28 @@ public class Player : Actor {
 			StartCoroutine ("IDashing", 0.15f);
 		}
 	}
+	public IEnumerator RageTick()
+	{
+		float timer = 10f;
+		while (timer >= 0f)
+		{
+			timer -= Time.deltaTime;
+			yield return null;
+		}
+		ChangeWeapon (0);
+	}
+
 	public void SkillA()
 	{
 		if (acInfo.mp < 10)
 			return;
 		acInfo.mp = 0;
-		Vector3 center = transform.position + (int)lookDir* Vector3.right * nowWeaponInfo.reach * 0.5f;
-		var hittedObjs = Physics.OverlapBox (center, Vector3.right* nowWeaponInfo.reach*0.5f + Vector3.up * bodyCollider.bounds.size.y* 0.5f + Vector3.forward * 2f, Quaternion.identity, 1 << LayerMask.NameToLayer("Enemy"));
-		Debug.Log ("Use SkillA");
-		for (int i = 0; i < hittedObjs.Length; i++)
-		{
-			var enemy = hittedObjs [i].GetComponent<Enemy>();
-			var dir = (enemy.transform.position - transform.position).normalized;
-			enemy.Damaged (nowWeaponInfo.damage, (enemy.transform.position - transform.position).normalized);
-			enemy.Knockback (dir * 100);
-		}
+		ChangeWeapon (1);
+		StartCoroutine (RageTick());
 	}
 	public void ChangeWeapon()
 	{
-		ChangeWeapon ((nowWeaponIndex + 1) % haveWeaponsInfo.Count);
+		//ChangeWeapon ((nowWeaponIndex + 1) % haveWeaponsInfo.Count);
 	}
 
 	void HandleStartEvent (Spine.TrackEntry entry, Spine.Event e)
@@ -219,7 +178,56 @@ public class Player : Actor {
 	void HandleHitEvent (Spine.TrackEntry entry, Spine.Event e)
 	{
 		if (e.Data.Name == "Hit") {
+			Vector3 center = transform.position + (int)lookDir* Vector3.right * nowWeaponInfo.reach * 0.5f;
+			var hittedObjs = Physics.OverlapBox (center, Vector3.right* nowWeaponInfo.reach*0.5f + Vector3.up * bodyCollider.bounds.size.y* 0.5f + Vector3.forward * 2f, Quaternion.identity, 1 << LayerMask.NameToLayer("Enemy"));
 
+			int mCount = 0;
+			for (int i = 0; i < hittedObjs.Length; i++)
+			{
+				var obj = hittedObjs [i];
+				var enemy = obj.GetComponent<Enemy> ();
+				if (null != enemy)
+				{
+					if (enemy.acInfo.isDead)
+						continue;
+					GamePad.SetVibration (0, 0.7f, 0.7f);
+
+					++mCount;
+					var pos = enemy.bodyCollider.bounds.center + new Vector3 (Random.Range (-1, 1), Random.Range (-1, 1), -1f) + Vector3.up * 2;
+					switch (nowWeaponInfo.weaponType)
+					{
+					case WeaponType.BetWeapon:
+						var newEffect01 = Instantiate (betHitEffects [Random.Range (0, betHitEffects.Length)], pos, Quaternion.identity);
+						newEffect01.transform.localScale = Vector3.one * 2;
+						enemy.Damaged (nowWeaponInfo.damage, (enemy.transform.position - transform.position).normalized);
+						break;
+					case WeaponType.KeyBoardWeapon:
+						var newEffect02 = Instantiate (keyboardHitEffects[0], pos, Quaternion.identity);
+						newEffect02.transform.localScale = Vector3.one;
+						enemy.Damaged (nowWeaponInfo.damage, (enemy.transform.position - transform.position).normalized * 1.5f);
+						break;
+					case WeaponType.MouseWeapon:
+
+						break;
+					}
+				}
+			}
+			if (mCount != 0) {
+				Camera.main.GetComponent<ProCamera2DShake> ().Shake (0);
+				GamePad.SetVibration (0, 0.5f, 0.5f);
+				if (animationIndex + 1 >= 2) {
+					// 2타 콤보 쳤을때
+					if (nowWeaponInfo.weaponType != WeaponType.KeyBoardWeapon) {
+						acInfo.mp = Mathf.Min (acInfo.mp + 1, 10);
+						animationIndex = 0;
+					}
+				} else {
+					++animationIndex;
+				}
+				ComboTimer.GetInstance.AddCombo (mCount);
+			} else {
+				animationIndex = 0;
+			}
 		}
 	}
 }
