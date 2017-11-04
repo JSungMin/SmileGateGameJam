@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 03e7b46a01999064eaf4d655a39c87c1
+timeCreated: 1509814578
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: KoreanMSTR
+  fontNames:
+  - KoreanMSTR
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

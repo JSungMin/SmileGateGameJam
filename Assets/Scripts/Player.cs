@@ -37,7 +37,7 @@ public class Player : Actor {
 		"Player_mouse_attack1"
 	};
 
-	void OnEnable ()
+	private new void OnEnable ()
 	{
 		base.OnEnable ();
 		instance = this;
@@ -53,7 +53,7 @@ public class Player : Actor {
 		GamePad.SetVibration (0, 0f, 0f);
 	}
 
-	public virtual void Damaged(float val, Vector3 dir)
+	public new virtual void Damaged(float val, Vector3 dir)
 	{
 		base.Damaged (val, dir);
 		Camera.main.GetComponent<ProCamera2DShake> ().Shake (0);
@@ -107,6 +107,7 @@ public class Player : Actor {
 					break;
 				}
 
+                Debug.Log("Hit?");
 				enemy.Damaged (nowWeaponInfo.damage, (enemy.transform.position - transform.position).normalized);
 			}
 		}

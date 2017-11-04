@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 07f217bf10451e445b9c3d4b03b65e36
+timeCreated: 1509814579
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: SplatoonK
+  fontNames:
+  - SplatoonK
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
