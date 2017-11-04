@@ -49,15 +49,6 @@ public class AILerp : MonoBehaviour {
 	/** Speed in world units */
 	public float speed = 3;
 
-	/** If true, the AI will rotate to face the movement direction */
-	public bool enableRotation = true;
-
-	/** If true, rotation will only be done along the Z axis */
-	public bool rotationIn2D = false;
-
-	/** How quickly to rotate */
-	public float rotationSpeed = 10;
-
 	/** If true, some interpolation will be done when a new path has been calculated.
 	 * This is used to avoid short distance teleportation.
 	 */
@@ -365,22 +356,8 @@ public class AILerp : MonoBehaviour {
 	protected virtual void Update () {
 		if (canMove) {
 			Vector3 direction;
-			Vector3 nextPos = CalculateNextPosition(out direction);
-
-			// Rotate unless we are really close to the target
-			if (enableRotation && direction != Vector3.zero) {
-				if (rotationIn2D) {
-					float angle = Mathf.Atan2(direction.x, -direction.y) * Mathf.Rad2Deg + 180;
-					Vector3 euler = tr.eulerAngles;
-					euler.z = Mathf.LerpAngle(euler.z, angle, Time.deltaTime * rotationSpeed);
-					tr.eulerAngles = euler;
-				} else {
-					Quaternion rot = tr.rotation;
-					Quaternion desiredRot = Quaternion.LookRotation(direction);
-
-					tr.rotation = Quaternion.Slerp(rot, desiredRot, Time.deltaTime * rotationSpeed);
-				}
-			}
+            Vector3 nextPos = CalculateNextPosition(out direction);
+            Debug.Log(nextPos);
 
 			tr.position = nextPos;
 		}

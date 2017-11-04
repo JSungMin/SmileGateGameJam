@@ -1,13 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 
-[RequireComponent(typeof(Seeker))]
-[AddComponentMenu("Pathfinding/AI/AISimpleLerp (2D,3D generic)")]
-[HelpURL("http://arongranberg.com/astar/docs/class_a_i_lerp.php")]
 public class MiniEnemy : Enemy {
-
+   
     public bool isMoving;
 
     public float farDisance;
@@ -26,6 +22,7 @@ public class MiniEnemy : Enemy {
     void Start()
     {
         StartCoroutine(miniPattern());
+
     }
 
     public Vector3 getMove()
@@ -34,8 +31,9 @@ public class MiniEnemy : Enemy {
         if (disToPlayer > farDisance || (disToPlayer >= nearDistance && disToPlayer < normalDistance))
         {
             acInfo.speed = normalSpeed;
-            dir = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
-            dir = dir.normalized;
+            Vector3 dir1 = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
+            Vector3 dir2 = (Player.GetInstance.transform.position - transform.position).normalized;
+            dir = (dir1 + dir2).normalized;
         }
         else if (disToPlayer < nearDistance)
         {
@@ -50,11 +48,9 @@ public class MiniEnemy : Enemy {
             dir = dir.normalized;
         }
 
-        isMoving = true;
-
         return dir;
     }
-
+    
     IEnumerator miniPattern()
     {
         float timer = 0f;
@@ -62,20 +58,23 @@ public class MiniEnemy : Enemy {
 
         while(true)
         {
-            timer += Time.deltaTime;
-
+            
             if (!isMoving)
             {
                 dir = getMove();
                 isMoving = true;
             }
-
-            if (timer < 1f)
+            else if (timer < 1f)
             {
+                timer += Time.deltaTime;
                 Move(dir);
             }
-
-            else if(timer > 2f)
+            else if(timer >= 1f && timer < 2f)
+            {
+                acInfo.speed = 0;
+                timer += Time.deltaTime;
+            }
+            else
             {
                 isMoving = false;
                 timer = 0f;

@@ -205,10 +205,10 @@ namespace Pathfinding.RVO {
 			rvoAgent.CollidesWith = collidesWith;
 		}
 
-		/** Set the desired velocity for the agent.
+        /** Set the desired velocity for the agent.
 		 * Note that this is a velocity (units/second), not a movement delta (units/frame).
 		 */
-		public void Move (Vector3 vel) {
+        public void Move (Vector3 vel) {
 			desiredVelocity = vel;
 		}
 
